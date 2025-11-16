@@ -1,0 +1,41 @@
+name: Deploy to Production
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  deploy:
+    name: Deploy to AWS EKS
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-central-1
+
+      - name: Update kubeconfig
+        run: |
+          aws eks update-kubeconfig --name soilviews-production --region eu-central-1
+
+      - name: Deploy with Helm
+        run: |
+          helm upgrade --install soilviews ./infra/helm/soilviews \
+            --namespace production \
+            --values ./infra/helm/soilviews/values.prod.yaml \
+            --set image.tag=${{ github.ref_name }}
+
+      - name: Verify deployment
+        run: |
+          kubectl rollout status deployment/soilviews-api -n production
+          kubectl rollout status deployment/soilviews-web -n production
+
+      - name: Run smoke tests
+        run: |
+          curl -f https://api.soilviews.bg/api/health || exit 1

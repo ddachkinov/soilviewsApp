@@ -1,0 +1,38 @@
+# SoilViews Training Configuration
+# EfficientNet-b3 encoder + DeepLabV3+ decoder
+
+experiment_name: "soilviews-efficientnet-b3-v1"
+
+model:
+  encoder: "efficientnet-b3"
+  encoder_weights: "imagenet"
+  decoder: "deeplabv3plus"
+  in_channels: 10  # 8 Sentinel-2 + 2 Sentinel-1
+  out_channels: 7  # pH, OM, N, P, K, Clay%, Sand%
+  activation: null  # Raw logits
+
+training:
+  batch_size: 4
+  learning_rate: 1e-4
+  max_epochs: 100
+  optimizer: "adamw"
+  scheduler: "cosine"
+
+data:
+  train_csv: "data/train_samples.csv"
+  val_csv: "data/val_samples.csv"
+  sentinel2_dir: "data/sentinel2/"
+  sentinel1_dir: "data/sentinel1/"
+  ground_truth_dir: "data/ground_truth/"
+  num_workers: 4
+  pin_memory: true
+
+augmentation:
+  horizontal_flip: true
+  vertical_flip: true
+  random_rotation: 15
+  random_brightness: 0.2
+
+wandb:
+  project: "soilviews"
+  entity: "soilviews-team"

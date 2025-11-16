@@ -1,0 +1,32 @@
+version: '3.8'
+
+# SoilViews Test Environment
+# Minimal services for integration testing
+
+services:
+  postgres-test:
+    image: postgis/postgis:16-3.4-alpine
+    environment:
+      POSTGRES_DB: soilviews_test
+      POSTGRES_USER: soilviews_test
+      POSTGRES_PASSWORD: test_password
+    ports:
+      - '5433:5432'
+    tmpfs:
+      - /var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U soilviews_test']
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  redis-test:
+    image: redis:7-alpine
+    ports:
+      - '6380:6379'
+    tmpfs:
+      - /data
+
+networks:
+  default:
+    name: soilviews-test-network

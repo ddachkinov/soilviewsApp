@@ -1,0 +1,14 @@
+-r requirements.txt
+
+# Development tools
+black==23.12.1
+isort==5.13.2
+flake8==7.0.0
+mypy==1.8.0
+pre-commit==3.6.0
+
+# Jupyter for experimentation
+jupyter==1.0.0
+ipykernel==6.28.0
+matplotlib==3.8.2
+seaborn==0.13.1

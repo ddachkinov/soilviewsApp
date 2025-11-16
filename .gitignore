@@ -1,0 +1,102 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+env/
+venv/
+ENV/
+.venv
+
+# Testing
+coverage/
+*.coverage
+.nyc_output
+.pytest_cache/
+htmlcov/
+
+# Production
+build/
+dist/
+*.egg-info/
+
+# Misc
+.DS_Store
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# OS
+Thumbs.db
+
+# Terraform
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+*.tfvars
+!terraform.tfvars.example
+
+# Docker
+.dockerignore
+
+# Local development
+*.local
+.cache/
+.parcel-cache/
+.next/
+.nuxt/
+
+# Secrets
+*.pem
+*.key
+!*.pub
+secrets/
+credentials/
+
+# ML Models
+*.pth
+*.onnx
+*.pb
+checkpoints/
+wandb/
+mlruns/
+
+# Data
+*.tif
+*.tiff
+*.geotiff
+*.cog
+data/raw/
+data/processed/
+!data/sample/
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+*.tmp
