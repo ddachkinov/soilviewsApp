@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
-import { fieldsApi } from '../services/fields';
+import { fieldsApi, Field } from '../services/fields';
 import { mapsApi } from '../services/maps';
 import { prescriptionsApi } from '../services/prescriptions';
 import { FieldDrawer } from '../components/fields/FieldDrawer';
 import { KaisImporter } from '../components/fields/KaisImporter';
+import { CadastreSearch } from '../components/cadastre/CadastreSearch';
 import { AnalysisRequestForm } from '../components/analysis/AnalysisRequestForm';
 import { SoilMapViewer } from '../components/maps/SoilMapViewer';
 import { PrescriptionRequestForm } from '../components/prescriptions/PrescriptionRequestForm';
@@ -18,6 +19,7 @@ export function Dashboard() {
   const [activeTab, setActiveTab] = useState<'fields' | 'analysis' | 'maps' | 'prescriptions'>('fields');
   const [showFieldDrawer, setShowFieldDrawer] = useState(false);
   const [showKaisImporter, setShowKaisImporter] = useState(false);
+  const [showCadastreSearch, setShowCadastreSearch] = useState(false);
 
   // Fetch fields
   const { data: fields = [], refetch: refetchFields } = useQuery({
@@ -70,6 +72,9 @@ export function Dashboard() {
             <div className="field-actions">
               <button onClick={() => setShowFieldDrawer(true)} className="btn-icon" title="Draw field">
                 ✏️
+              </button>
+              <button onClick={() => setShowCadastreSearch(true)} className="btn-icon" title="Search KAIS">
+                🔍
               </button>
               <button onClick={() => setShowKaisImporter(true)} className="btn-icon" title="Import from KAIS">
                 📥
@@ -243,6 +248,22 @@ export function Dashboard() {
               onImportComplete={() => {
                 setShowKaisImporter(false);
                 refetchFields();
+              }}
+            />
+          </div>
+        </div>
+      )}
+
+      {showCadastreSearch && (
+        <div className="modal">
+          <div className="modal-content">
+            <button className="modal-close" onClick={() => setShowCadastreSearch(false)}>
+              ×
+            </button>
+            <CadastreSearch
+              onFieldFound={(field: Field) => {
+                setSelectedFieldId(field.id);
+                setShowCadastreSearch(false);
               }}
             />
           </div>

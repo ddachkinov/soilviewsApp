@@ -76,6 +76,27 @@ export const fieldsApi = {
     formData.append('shx', shxFile);
     formData.append('prj', prjFile);
 
-    return api.post<{ count: number; fields: Field[] }>('/fields/import/kais', formData);
+    return api.post<{ count: number; fields: Field[] }>('/cadastre/import', formData);
+  },
+
+  /**
+   * Search field by KAIS cadastre ID.
+   */
+  searchByCadastreId: (cadastreId: string): Promise<Field | null> => {
+    return api.get<Field | null>('/cadastre/search', { cadastreId });
+  },
+
+  /**
+   * Search fields by EKATTE municipality code.
+   */
+  searchByEkatte: (ekatte: string): Promise<Field[]> => {
+    return api.get<Field[]>('/cadastre/search/ekatte', { ekatte });
+  },
+
+  /**
+   * Validate cadastre ID format.
+   */
+  validateCadastreId: (cadastreId: string): Promise<{ valid: boolean }> => {
+    return api.get<{ valid: boolean }>('/cadastre/validate', { cadastreId });
   },
 };

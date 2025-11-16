@@ -13,6 +13,7 @@ import { MapsModule } from './maps/maps.module';
 import { PrescriptionsModule } from './prescriptions/prescriptions.module';
 import { InsuranceModule } from './insurance/insurance.module';
 import { SentinelHubModule } from './sentinel-hub/sentinel-hub.module';
+import { CadastreModule } from './cadastre/cadastre.module';
 
 // Common modules
 import { HealthController } from './common/health.controller';
@@ -85,6 +86,7 @@ import { HealthController } from './common/health.controller';
     PrescriptionsModule,
     InsuranceModule,
     SentinelHubModule,
+    CadastreModule,
   ],
   controllers: [HealthController],
 })
