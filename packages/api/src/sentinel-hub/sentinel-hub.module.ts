@@ -1,5 +1,8 @@
 import { Module } from '@nestjs/common';
+import { SentinelHubService } from './sentinel-hub.service';
 
-// Placeholder for Sentinel-Hub integration - Copernicus data fetching
-@Module({})
+@Module({
+  providers: [SentinelHubService],
+  exports: [SentinelHubService],
+})
 export class SentinelHubModule {}
