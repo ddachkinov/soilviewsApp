@@ -1,5 +1,13 @@
 import { Module } from '@nestjs/common';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { Survey } from './survey.entity';
+import { SurveysController } from './surveys.controller';
+import { SurveysService } from './surveys.service';
 
-// Placeholder for Surveys module - ground-truth soil samples
-@Module({})
+@Module({
+  imports: [TypeOrmModule.forFeature([Survey])],
+  controllers: [SurveysController],
+  providers: [SurveysService],
+  exports: [SurveysService],
+})
 export class SurveysModule {}
