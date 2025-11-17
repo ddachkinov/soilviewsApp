@@ -1,0 +1,49 @@
+{
+  "appName": "SoilViews",
+  "buttons": {
+    "login": "Login",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "next": "Next",
+    "previous": "Previous",
+    "skip": "Skip",
+    "reset": "Reset",
+    "search": "Search",
+    "searching": "Searching...",
+    "loading": "Loading...",
+    "submit": "Submit",
+    "download": "Download"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "fields": "Fields",
+    "map": "Map",
+    "logout": "Logout"
+  },
+  "common": {
+    "area": "Area",
+    "hectares": "hectares",
+    "ha": "ha",
+    "status": "Status",
+    "createdAt": "Created",
+    "year": "Year",
+    "resolution": "Resolution",
+    "notSpecified": "Not specified",
+    "welcome": "Welcome to SoilViews",
+    "email": "Email",
+    "password": "Password"
+  },
+  "units": {
+    "hectares": "hectares",
+    "ha": "ha",
+    "mgPerKg": "mg/kg",
+    "percent": "%",
+    "kgPerHa": "kg/ha",
+    "tPerHa": "t/ha",
+    "meters": "meters"
+  }
+}

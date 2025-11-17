@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import maplibregl from 'maplibre-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import * as turf from '@turf/turf';
@@ -22,6 +23,7 @@ export const QuickAnalysisArea: React.FC<QuickAnalysisAreaProps> = ({
   onAnalysisStarted,
   onCancel,
 }) => {
+  const { t } = useTranslation(['analysis', 'common']);
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const draw = useRef<MapboxDraw | null>(null);
@@ -94,7 +96,7 @@ export const QuickAnalysisArea: React.FC<QuickAnalysisAreaProps> = ({
 
     // Validate minimum area
     if (area < 0.1) {
-      alert('Area must be at least 0.1 hectares (1000 m²)');
+      alert(t('quickAnalysis.errorMinArea'));
       if (draw.current) {
         draw.current.delete(feature.id);
       }
@@ -107,7 +109,7 @@ export const QuickAnalysisArea: React.FC<QuickAnalysisAreaProps> = ({
   const createTemporaryFieldMutation = useMutation({
     mutationFn: async () => {
       if (!drawnGeometry) {
-        throw new Error('Please draw an area first');
+        throw new Error(t('quickAnalysis.errorNoArea'));
       }
 
       // Create temporary field
@@ -133,18 +135,18 @@ export const QuickAnalysisArea: React.FC<QuickAnalysisAreaProps> = ({
       onAnalysisStarted?.(field);
     },
     onError: (error: any) => {
-      alert(`Failed to start analysis: ${error.message || 'Unknown error'}`);
+      alert(t('quickAnalysis.errorRequest', { message: error.message || 'Unknown error' }));
     },
   });
 
   const properties = [
-    { value: 'ph', label: 'Soil pH' },
-    { value: 'organic_matter', label: 'Organic Matter' },
-    { value: 'nitrogen', label: 'Nitrogen' },
-    { value: 'phosphorus', label: 'Phosphorus' },
-    { value: 'potassium', label: 'Potassium' },
-    { value: 'clay_percent', label: 'Clay Content' },
-    { value: 'sand_percent', label: 'Sand Content' },
+    { value: 'ph', label: t('soilProperties.ph.name') },
+    { value: 'organic_matter', label: t('soilProperties.organicMatter.name') },
+    { value: 'nitrogen', label: t('soilProperties.nitrogen.name') },
+    { value: 'phosphorus', label: t('soilProperties.phosphorus.name') },
+    { value: 'potassium', label: t('soilProperties.potassium.name') },
+    { value: 'clay_percent', label: t('soilProperties.clay.name') },
+    { value: 'sand_percent', label: t('soilProperties.sand.name') },
   ];
 
   const handlePropertyToggle = (property: string) => {
@@ -156,19 +158,16 @@ export const QuickAnalysisArea: React.FC<QuickAnalysisAreaProps> = ({
   return (
     <div className="quick-analysis-area">
       <div className="analysis-header">
-        <h3>Quick Area Analysis</h3>
-        <p className="help-text">
-          Draw an area on the map to analyze immediately. This creates a temporary field that expires in 30
-          days unless you save it.
-        </p>
+        <h3>{t('quickAnalysis.title')}</h3>
+        <p className="help-text">{t('quickAnalysis.helpText')}</p>
       </div>
 
       <div ref={mapContainer} className="map-container" style={{ width: '100%', height: '400px' }} />
 
       {areaHa !== null && (
         <div className="area-info">
-          <strong>Area drawn:</strong> {areaHa.toFixed(2)} hectares
-          <p className="help-text">Select which soil properties to analyze:</p>
+          <strong>{t('quickAnalysis.areaDrawn')}</strong> {areaHa.toFixed(2)} {t('common:units.hectares', { ns: 'common' })}
+          <p className="help-text">{t('quickAnalysis.selectProperties')}</p>
         </div>
       )}
 
@@ -186,18 +185,18 @@ export const QuickAnalysisArea: React.FC<QuickAnalysisAreaProps> = ({
       </div>
 
       <div className="info-box">
-        <h4>What happens next?</h4>
+        <h4>{t('quickAnalysis.whatHappens')}</h4>
         <ul>
-          <li>Temporary field created (expires in 30 days)</li>
-          <li>Soil analysis starts immediately (3-5 min per property)</li>
-          <li>You'll receive notifications when ready</li>
-          <li>Option to save as permanent field after viewing results</li>
+          <li>{t('quickAnalysis.steps.tempField')}</li>
+          <li>{t('quickAnalysis.steps.analysisStarts')}</li>
+          <li>{t('quickAnalysis.steps.notifications')}</li>
+          <li>{t('quickAnalysis.steps.saveOption')}</li>
         </ul>
       </div>
 
       <div className="analysis-actions">
         <button onClick={onCancel} className="btn-secondary" disabled={createTemporaryFieldMutation.isPending}>
-          Cancel
+          {t('common:buttons.cancel', { ns: 'common' })}
         </button>
         <button
           onClick={() => createTemporaryFieldMutation.mutate()}
@@ -205,8 +204,8 @@ export const QuickAnalysisArea: React.FC<QuickAnalysisAreaProps> = ({
           disabled={!drawnGeometry || selectedProperties.length === 0 || createTemporaryFieldMutation.isPending}
         >
           {createTemporaryFieldMutation.isPending
-            ? 'Starting Analysis...'
-            : `Analyze Now (${selectedProperties.length} properties)`}
+            ? t('quickAnalysis.analyzing')
+            : t('quickAnalysis.analyzeButton', { count: selectedProperties.length })}
         </button>
       </div>
     </div>

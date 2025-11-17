@@ -1,0 +1,57 @@
+{
+  "search": {
+    "title": "Search KAIS Cadastre",
+    "helpText": "Find fields by cadastre ID or municipality (EKATTE) code",
+    "searchType": {
+      "cadastreId": "Cadastre ID",
+      "ekatteCode": "EKATTE Code"
+    },
+    "placeholder": {
+      "cadastreId": "e.g., 58761.34.12",
+      "ekatte": "e.g., 58761 (Sofia municipality)"
+    },
+    "formatHelp": {
+      "title": "Format: XXXXX.YY.ZZZ",
+      "ekatte": "XXXXX = EKATTE code (municipality)",
+      "property": "YY = Property number",
+      "parcel": "ZZZ = Parcel number",
+      "ekatteDescription": "EKATTE is a 5-digit code identifying Bulgarian municipalities.",
+      "examples": "Examples: 58761 (Sofia), 56784 (Plovdiv), 63453 (Varna)"
+    },
+    "errors": {
+      "invalidCadastreId": "Invalid cadastre ID format. Expected: XXXXX.YY.ZZZ (e.g., 58761.34.12)",
+      "invalidEkatte": "Invalid EKATTE code. Expected 5 digits.",
+      "noValue": "Please enter a search value",
+      "searchFailed": "Search failed"
+    },
+    "results": {
+      "title": "Search Results",
+      "noResults": "No fields found for {{type}} \"{{value}}\".",
+      "foundInMunicipality": "Found {{count}} fields in municipality",
+      "id": "ID:",
+      "viewField": "View Field →"
+    }
+  },
+  "import": {
+    "title": "Import from KAIS Cadastre",
+    "helpText": "Download cadastre shapefiles from KAIS Open Data and upload all 4 required files.",
+    "kaisLink": "KAIS Open Data",
+    "dropZone": "Drag and drop shapefile components here, or click to browse",
+    "fileTypes": {
+      "shp": "Geometry (.shp)",
+      "dbf": "Attributes (.dbf)",
+      "shx": "Index (.shx)",
+      "prj": "Projection (.prj)"
+    },
+    "fileSelected": "✓ {{filename}}",
+    "importButton": "Import Fields",
+    "importing": "Importing...",
+    "progress": "{{progress}}%",
+    "success": "Successfully imported {{count}} fields from KAIS cadastre data",
+    "errors": {
+      "allRequired": "All shapefile components required (.shp, .dbf, .shx, .prj)",
+      "importFailed": "Import failed: {{message}}",
+      "invalidFileType": "Invalid file type. Expected .{{type}} file"
+    }
+  }
+}

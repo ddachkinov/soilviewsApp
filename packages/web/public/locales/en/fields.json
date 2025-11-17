@@ -1,0 +1,20 @@
+{
+  "title": "Fields",
+  "description": "Manage your agricultural parcels.",
+  "drawer": {
+    "title": "Draw Field Boundary",
+    "instructions": {
+      "step1": "1. Click on the map to start drawing",
+      "step2": "2. Click to add each corner point",
+      "step3": "3. Double-click to finish the polygon",
+      "step4": "4. Use the trash icon to delete and start over"
+    },
+    "area": "Area:",
+    "confirmButton": "Confirm Field",
+    "errors": {
+      "minArea": "Field must be at least 0.1 hectares (1000 m²)",
+      "notInBulgaria": "Field must be within Bulgaria",
+      "noBoundary": "Please draw a field boundary first"
+    }
+  }
+}

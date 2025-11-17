@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 import { prescriptionsApi, CreatePrescriptionDto } from '../../services/prescriptions';
 
 interface PrescriptionRequestFormProps {
@@ -16,6 +17,7 @@ export const PrescriptionRequestForm: React.FC<PrescriptionRequestFormProps> = (
   onRequestComplete,
 }) => {
   const queryClient = useQueryClient();
+  const { t } = useTranslation('prescriptions');
 
   const [cropType, setCropType] = useState<'wheat' | 'sunflower' | 'maize'>('wheat');
   const [season, setSeason] = useState<string>(`autumn-${new Date().getFullYear()}`);
@@ -46,19 +48,34 @@ export const PrescriptionRequestForm: React.FC<PrescriptionRequestFormProps> = (
       return prescriptionsApi.create(dto);
     },
     onSuccess: () => {
-      alert('VRA prescription requested successfully. Processing will begin shortly.');
+      alert(t('requestForm.success'));
       queryClient.invalidateQueries({ queryKey: ['prescriptions', fieldId] });
       onRequestComplete?.();
     },
     onError: (error: any) => {
-      alert(`Failed to create prescription: ${error.message || 'Unknown error'}`);
+      alert(t('requestForm.error', { message: error.message || 'Unknown error' }));
     },
   });
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (window.confirm(`Create ${strategy} prescription for ${cropType}?`)) {
+    // Map crop type and strategy to translation keys
+    const cropTypeMap: Record<string, string> = {
+      wheat: 'winterWheat',
+      sunflower: 'sunflower',
+      maize: 'maize',
+    };
+    const strategyMap: Record<string, string> = {
+      VARIABLE: 'variableRate',
+      ZONE_BASED: 'zoneBased',
+      UNIFORM: 'uniform',
+    };
+
+    const cropTypeLabel = t(`requestForm.cropTypes.${cropTypeMap[cropType]}`);
+    const strategyLabel = t(`requestForm.strategies.${strategyMap[strategy]}`);
+
+    if (window.confirm(t('requestForm.confirmMessage', { strategy: strategyLabel, cropType: cropTypeLabel }))) {
       createPrescriptionMutation.mutate();
     }
   };
@@ -81,46 +98,46 @@ export const PrescriptionRequestForm: React.FC<PrescriptionRequestFormProps> = (
   return (
     <div className="prescription-request-form">
       <div className="form-header">
-        <h3>Create VRA Prescription</h3>
+        <h3>{t('requestForm.title')}</h3>
         <p className="help-text">
-          Generate variable rate fertilizer application maps for precision agriculture equipment.
+          {t('requestForm.helpText')}
         </p>
       </div>
 
       <form onSubmit={handleSubmit}>
         <div className="form-section">
           <label>
-            <strong>Crop Type</strong>
+            <strong>{t('requestForm.cropType')}</strong>
           </label>
           <select value={cropType} onChange={(e) => handleCropChange(e.target.value as any)} required>
-            <option value="wheat">Winter Wheat</option>
-            <option value="sunflower">Sunflower</option>
-            <option value="maize">Maize</option>
+            <option value="wheat">{t('requestForm.cropTypes.winterWheat')}</option>
+            <option value="sunflower">{t('requestForm.cropTypes.sunflower')}</option>
+            <option value="maize">{t('requestForm.cropTypes.maize')}</option>
           </select>
         </div>
 
         <div className="form-section">
           <label>
-            <strong>Season</strong>
+            <strong>{t('requestForm.season')}</strong>
           </label>
           <input type="text" value={season} onChange={(e) => setSeason(e.target.value)} required />
-          <p className="help-text">e.g., autumn-2024, spring-2025</p>
+          <p className="help-text">{t('requestForm.seasonPlaceholder')}</p>
         </div>
 
         <div className="form-section">
           <label>
-            <strong>Application Strategy</strong>
+            <strong>{t('requestForm.applicationStrategy')}</strong>
           </label>
           <select value={strategy} onChange={(e) => setStrategy(e.target.value as any)} required>
-            <option value="VARIABLE">Variable Rate (pixel-level)</option>
-            <option value="ZONE_BASED">Zone-Based (3-5 management zones)</option>
-            <option value="UNIFORM">Uniform (single rate)</option>
+            <option value="VARIABLE">{t('requestForm.strategies.variableRate')}</option>
+            <option value="ZONE_BASED">{t('requestForm.strategies.zoneBased')}</option>
+            <option value="UNIFORM">{t('requestForm.strategies.uniform')}</option>
           </select>
         </div>
 
         <div className="form-section">
           <label>
-            <strong>Yield Goal (t/ha)</strong>
+            <strong>{t('requestForm.yieldGoal')}</strong>
           </label>
           <input
             type="number"
@@ -135,22 +152,26 @@ export const PrescriptionRequestForm: React.FC<PrescriptionRequestFormProps> = (
 
         <div className="form-section">
           <label>
-            <strong>Calculation Method</strong>
+            <strong>{t('requestForm.calculationMethod')}</strong>
           </label>
           <select value={method} onChange={(e) => setMethod(e.target.value as any)} required>
-            <option value="nutrient_removal">Nutrient Removal (based on yield goal)</option>
-            <option value="sufficiency">Sufficiency Level</option>
-            <option value="recommendation">Standard Recommendation</option>
+            <option value="nutrient_removal">{t('requestForm.calculationMethods.nutrientRemoval')}</option>
+            <option value="sufficiency">{t('requestForm.calculationMethods.sufficiencyLevel')}</option>
+            <option value="recommendation">{t('requestForm.calculationMethods.standardRecommendation')}</option>
           </select>
         </div>
 
         <div className="form-section">
-          <h4>Target Application Rates (kg/ha)</h4>
-          <p className="help-text">Recommended rates for {cropType} (you can adjust)</p>
+          <h4>{t('requestForm.targetRates')}</h4>
+          <p className="help-text">
+            {t('requestForm.recommendedRates', {
+              cropType: t(`requestForm.cropTypes.${cropType === 'wheat' ? 'winterWheat' : cropType}`)
+            })}
+          </p>
 
           <div className="rate-inputs">
             <div className="rate-input">
-              <label>Nitrogen (N)</label>
+              <label>{t('requestForm.nitrogen')}</label>
               <input
                 type="number"
                 min="0"
@@ -162,7 +183,7 @@ export const PrescriptionRequestForm: React.FC<PrescriptionRequestFormProps> = (
             </div>
 
             <div className="rate-input">
-              <label>Phosphorus (P₂O₅)</label>
+              <label>{t('requestForm.phosphorus')}</label>
               <input
                 type="number"
                 min="0"
@@ -174,7 +195,7 @@ export const PrescriptionRequestForm: React.FC<PrescriptionRequestFormProps> = (
             </div>
 
             <div className="rate-input">
-              <label>Potassium (K₂O)</label>
+              <label>{t('requestForm.potassium')}</label>
               <input
                 type="number"
                 min="0"
@@ -189,18 +210,18 @@ export const PrescriptionRequestForm: React.FC<PrescriptionRequestFormProps> = (
 
         <div className="form-section">
           <div className="info-box">
-            <h4>Output Files</h4>
+            <h4>{t('requestForm.outputFiles.title')}</h4>
             <ul>
-              <li>Shapefile compatible with John Deere, Case IH, CLAAS equipment</li>
-              <li>PDF report with application summary</li>
-              <li>ISO 11783 XML format for ISOBUS controllers</li>
+              <li>{t('requestForm.outputFiles.shapefile')}</li>
+              <li>{t('requestForm.outputFiles.pdfReport')}</li>
+              <li>{t('requestForm.outputFiles.isoxml')}</li>
             </ul>
           </div>
         </div>
 
         <div className="form-actions">
           <button type="submit" className="btn-primary" disabled={createPrescriptionMutation.isPending}>
-            {createPrescriptionMutation.isPending ? 'Creating...' : 'Create Prescription'}
+            {createPrescriptionMutation.isPending ? t('requestForm.creating') : t('requestForm.createButton')}
           </button>
         </div>
       </form>

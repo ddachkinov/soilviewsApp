@@ -70,7 +70,7 @@ export const fieldsApi = {
     dbfFile: File,
     shxFile: File,
     prjFile: File,
-    onProgress?: (progress: number) => void
+    _onProgress?: (progress: number) => void
   ): Promise<{ count: number; fields: Field[] }> => {
     const formData = new FormData();
     formData.append('shp', shpFile);

@@ -1,0 +1,73 @@
+{
+  "requestForm": {
+    "title": "Request Soil Analysis",
+    "helpText": "Select soil properties to analyze. Analysis uses satellite imagery and AI to generate property maps.",
+    "cropYear": "Crop Year",
+    "maxCloudCover": "Maximum Cloud Cover (%)",
+    "cloudCoverHelp": "Lower values provide clearer imagery but may reduce data availability",
+    "propertiesTitle": "Soil Properties to Analyze",
+    "selectAll": "Select All",
+    "deselectAll": "Deselect All",
+    "submitButton": "Request Analysis ({{count}} properties)",
+    "submitting": "Requesting...",
+    "confirmMessage": "Request analysis for {{count}} soil properties?",
+    "processingInfo": {
+      "title": "Processing Information",
+      "time": "Analysis typically takes 3-5 minutes per property",
+      "notifications": "You will receive email and in-app notifications when complete",
+      "source": "Maps are generated using Sentinel-2 satellite imagery and AI",
+      "resolution": "Resolution: 10 meters per pixel"
+    },
+    "success": "Successfully requested {{count}} soil property maps. Processing will begin shortly.",
+    "errorNoProperties": "Please select at least one soil property to analyze",
+    "errorRequest": "Failed to request analysis: {{message}}"
+  },
+  "quickAnalysis": {
+    "title": "Quick Area Analysis",
+    "helpText": "Draw an area on the map to analyze immediately. This creates a temporary field that expires in 30 days unless you save it.",
+    "areaDrawn": "Area drawn:",
+    "selectProperties": "Select which soil properties to analyze:",
+    "whatHappens": "What happens next?",
+    "steps": {
+      "tempField": "Temporary field created (expires in 30 days)",
+      "analysisStarts": "Soil analysis starts immediately (3-5 min per property)",
+      "notifications": "You'll receive notifications when ready",
+      "saveOption": "Option to save as permanent field after viewing results"
+    },
+    "analyzeButton": "Analyze Now ({{count}} properties)",
+    "analyzing": "Starting Analysis...",
+    "errorMinArea": "Area must be at least 0.1 hectares (1000 m²)",
+    "errorNoArea": "Please draw an area first",
+    "errorRequest": "Failed to start analysis: {{message}}"
+  },
+  "soilProperties": {
+    "ph": {
+      "name": "Soil pH",
+      "description": "Acidity/alkalinity (4.0-9.0)"
+    },
+    "organicMatter": {
+      "name": "Organic Matter",
+      "description": "Percentage (0-15%)"
+    },
+    "nitrogen": {
+      "name": "Nitrogen",
+      "description": "Total N (mg/kg)"
+    },
+    "phosphorus": {
+      "name": "Phosphorus",
+      "description": "Available P (mg/kg)"
+    },
+    "potassium": {
+      "name": "Potassium",
+      "description": "Exchangeable K (mg/kg)"
+    },
+    "clay": {
+      "name": "Clay Content",
+      "description": "Percentage (0-100%)"
+    },
+    "sand": {
+      "name": "Sand Content",
+      "description": "Percentage (0-100%)"
+    }
+  }
+}

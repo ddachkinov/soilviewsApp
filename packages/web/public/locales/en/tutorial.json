@@ -1,0 +1,723 @@
+{
+  "sidebar": {
+    "title": "SoilViews",
+    "subtitle": "Interactive Guide",
+    "personalizedFor": "Personalized for:",
+    "progress": "Step {{current}} of {{total}}"
+  },
+  "navigation": {
+    "previous": "← Previous",
+    "next": "Next →",
+    "skipToDashboard": "Skip to Dashboard",
+    "startFreeTrial": "Start Free Trial →"
+  },
+  "steps": {
+    "chooseSegment": {
+      "title": "Who Are You?",
+      "description": "Tell us about yourself to see relevant features",
+      "heading": "Welcome to SoilViews 🌾",
+      "lead": "Select your role to see how SoilViews can help your specific needs:",
+      "successBanner": "✅ Great! Click \"Next\" to see how SoilViews works for {{segment}}s."
+    },
+    "valueProp": {
+      "title": "Why SoilViews?",
+      "description": "Benefits tailored to your needs",
+      "noSegmentSelected": "👈 Please select your role in Step 1 to see relevant benefits."
+    },
+    "fourMethods": {
+      "title": "Four Ways to Start",
+      "description": "Choose the method that works best for you",
+      "heading": "Four Ways to Add Your Fields",
+      "lead": "We support multiple workflows to fit how you work:"
+    },
+    "demo": {
+      "title": "Interactive Demo",
+      "description": "Try the quick analysis workflow",
+      "heading": "🎮 Try It Yourself",
+      "lead": "Click on the map to draw a field and see how soil analysis works.",
+      "instructionsTitle": "How to use this demo:",
+      "instructions": {
+        "step1": "Click on the map to start drawing a polygon (minimum 3 points)",
+        "step2": "Double-click or click the first point again to close the polygon",
+        "step3": "See estimated area and potential cost",
+        "step4": "Click \"Simulate Analysis\" to see what results look like"
+      },
+      "note": "ℹ️ This is a demo. Real analysis uses actual satellite imagery and AI models.",
+      "mapHint": "Click to start drawing a field",
+      "closePolygon": "Close Polygon ({{count}} points)",
+      "simulateAnalysis": "🎯 Simulate Analysis",
+      "reset": "↻ Reset",
+      "estimatedArea": "Estimated area: {{area}} ha",
+      "cost": "Cost: €{{cost}}/year",
+      "resultsComplete": "✅ Analysis Complete!",
+      "resultsArea": "Area:",
+      "resultsAnnualCost": "Annual Cost:"
+    },
+    "testimonials": {
+      "title": "Success Stories",
+      "description": "Hear from our customers",
+      "heading": "⭐ What Our Customers Say",
+      "lead": "Real results from Bulgarian farmers, consultants, and organizations.",
+      "caseStudiesTitle": "📊 Detailed Case Studies"
+    },
+    "getStarted": {
+      "title": "Ready to Start?",
+      "description": "Begin your precision agriculture journey",
+      "heading": "🎉 Ready to Transform Your Agriculture?",
+      "leads": {
+        "farmer": "Start analyzing your fields in minutes.",
+        "consultant": "Scale your consulting business with professional soil data.",
+        "insurance": "Improve risk assessment with soil health data.",
+        "cooperative": "Bring precision agriculture to all your members.",
+        "finance": "Make better lending decisions with soil data.",
+        "supplier": "Differentiate with precision recommendations.",
+        "government": "Monitor agriculture at national scale.",
+        "research": "Access validated soil data for your research.",
+        "default": "Start your precision agriculture journey today."
+      }
+    }
+  },
+  "segments": {
+    "farmer": {
+      "name": "Land Owner / Farmer",
+      "title": "💰 For Land Owners & Farmers",
+      "description": "Optimize your fields and increase profitability",
+      "lead": "Transform your farm with AI-powered soil intelligence. Save money on inputs while increasing yields.",
+      "benefits": {
+        "fertilizer": "Save 15-25% on fertilizer costs",
+        "yield": "Increase yields by 8-15%",
+        "subsidy": "Data for subsidy applications",
+        "pricing": "€0.10/ha/year pricing"
+      },
+      "resultsTitle": "Proven Results from Bulgarian Farms:",
+      "metrics": {
+        "fertilizerReduction": {
+          "value": "15-25%",
+          "label": "Fertilizer Cost Reduction",
+          "description": "Apply only where needed, not uniformly"
+        },
+        "yieldIncrease": {
+          "value": "8-15%",
+          "label": "Yield Increase",
+          "description": "Optimal nutrition for each soil zone"
+        },
+        "breakeven": {
+          "value": "6-9 months",
+          "label": "Break-even Period",
+          "description": "Investment pays for itself quickly"
+        },
+        "compatibility": {
+          "value": "100%",
+          "label": "Equipment Compatible",
+          "description": "Works with John Deere, Case IH, CLAAS"
+        }
+      },
+      "useCasesTitle": "Common Use Cases:",
+      "useCases": {
+        "vra": {
+          "title": "Variable Rate Fertilization",
+          "description": "Apply N-P-K based on actual soil needs, not average field values"
+        },
+        "zones": {
+          "title": "Zone Management",
+          "description": "Divide fields into management zones for different seeding rates"
+        },
+        "subsidy": {
+          "title": "Subsidy Documentation",
+          "description": "Professional soil maps for EU CAP subsidy applications"
+        },
+        "valuation": {
+          "title": "Land Valuation",
+          "description": "Soil data increases land value when selling or renting"
+        }
+      }
+    },
+    "consultant": {
+      "name": "Crop Consultant / Agronomist",
+      "title": "🎓 For Crop Consultants & Agronomists",
+      "description": "Deliver professional services to more clients",
+      "lead": "Scale your consulting business with professional soil maps and data-driven recommendations.",
+      "benefits": {
+        "whiteLabel": "White-label reports for clients",
+        "scale": "Serve 3x more farms efficiently",
+        "science": "Science-backed recommendations",
+        "portal": "Multi-client management portal"
+      },
+      "growBusiness": {
+        "title": "📈 Grow Your Business",
+        "metrics": {
+          "clients": {
+            "value": "3x",
+            "description": "Serve 3x more clients with same time investment"
+          },
+          "pricing": {
+            "value": "€45/ha",
+            "description": "Charge €45/ha for VRA services (cost: €0.10/ha)"
+          },
+          "retention": {
+            "value": "95%",
+            "description": "Client retention rate with data-backed advice"
+          }
+        }
+      },
+      "whiteLabelTitle": "🎨 White-Label Features",
+      "whiteLabelFeatures": [
+        "Custom branding on all reports and maps",
+        "Your logo on prescription shapefiles",
+        "Client portal with your company colors",
+        "Email notifications sent from your domain"
+      ],
+      "multiClientTitle": "👥 Multi-Client Management",
+      "multiClientFeatures": [
+        "Manage hundreds of client farms from one dashboard",
+        "Bulk analysis requests across multiple fields",
+        "Compare clients' fields side-by-side",
+        "Automated reporting and invoicing"
+      ],
+      "businessModelTitle": "💼 Business Model",
+      "businessModel": {
+        "yourCost": "Your Cost: €0.10/ha/year",
+        "typicalCharge": "Typical Charge: €45/ha/season",
+        "yourMargin": "Your Margin: €44.90/ha (99%)",
+        "example": "Example: 20 clients × 50 ha avg = 1,000 ha\nYour revenue: €45,000\nSoilViews cost: €100\nNet margin: €44,900"
+      }
+    },
+    "insurance": {
+      "name": "Insurance Company",
+      "title": "🛡️ For Insurance Companies",
+      "description": "Better risk assessment and fraud detection",
+      "lead": "Reduce risk and improve pricing accuracy with objective soil health data.",
+      "benefits": {
+        "riskScoring": "Soil health risk scoring",
+        "monitoring": "Historical field monitoring",
+        "verify": "Verify farming practices",
+        "reduceClaims": "Reduce claims by 15-20%"
+      },
+      "riskAssessmentTitle": "📊 Risk Assessment",
+      "riskAssessmentFeatures": [
+        "Soil health score for policy underwriting",
+        "Historical soil property trends (multi-year)",
+        "Identify high-risk fields before issuing policies",
+        "Correlate soil quality with claim history"
+      ],
+      "fraudDetectionTitle": "🔍 Fraud Detection",
+      "fraudDetectionFeatures": [
+        "Verify actual field boundaries vs claimed",
+        "Detect abandoned or poorly maintained fields",
+        "Historical vegetation indices (NDVI, EVI)",
+        "Cross-reference with subsidy databases"
+      ],
+      "expectedImpactTitle": "📈 Expected Impact",
+      "expectedImpact": {
+        "fraudReduction": {
+          "value": "15-20%",
+          "description": "Reduction in fraudulent claims"
+        },
+        "pricingAccuracy": {
+          "value": "12%",
+          "description": "Improved pricing accuracy"
+        },
+        "lossRatio": {
+          "value": "8%",
+          "description": "Lower loss ratios"
+        }
+      },
+      "integrationTitle": "🔗 Integration Options",
+      "integrationFeatures": [
+        "REST API for automated risk scoring",
+        "Webhook notifications for field changes",
+        "Bulk data export for actuarial analysis",
+        "SSO integration with your systems"
+      ]
+    },
+    "cooperative": {
+      "name": "Agricultural Cooperative",
+      "title": "🤝 For Agricultural Cooperatives",
+      "description": "Bring precision ag to all your members",
+      "lead": "Bring precision agriculture to all your members with affordable bulk pricing.",
+      "benefits": {
+        "bulkPricing": "Bulk pricing for member farms",
+        "standardized": "Standardized data across members",
+        "collective": "Collective purchasing power",
+        "training": "Training and support included"
+      },
+      "bulkPricingTitle": "💰 Bulk Pricing",
+      "pricingTiers": {
+        "standard": {
+          "name": "Standard",
+          "price": "€0.10/ha/year",
+          "description": "Up to 1,000 hectares total"
+        },
+        "cooperative": {
+          "name": "Cooperative",
+          "price": "€0.07/ha/year",
+          "description": "1,000 - 10,000 hectares",
+          "badge": "30% discount"
+        },
+        "enterprise": {
+          "name": "Enterprise",
+          "price": "€0.05/ha/year",
+          "description": "10,000+ hectares",
+          "badge": "50% discount"
+        }
+      },
+      "memberManagementTitle": "👥 Member Management",
+      "memberManagementFeatures": [
+        "Separate logins for each member farm",
+        "Cooperative admin dashboard for oversight",
+        "Aggregate reporting across all members",
+        "Compare member performance anonymously"
+      ],
+      "trainingSupportTitle": "📚 Training & Support",
+      "trainingSupportFeatures": [
+        "On-site training for cooperative staff",
+        "Bulgarian-language documentation",
+        "Monthly webinars for members",
+        "Dedicated account manager"
+      ],
+      "successStoryTitle": "📊 Success Story: Cooperative Zora",
+      "successStory": {
+        "intro": "We started with 15 member farms (850 ha total) paying €0.07/ha. Within one year:",
+        "results": [
+          "Grew to 127 members (6,200 ha)",
+          "Members saved average €18/ha in fertilizer costs",
+          "Average yield increase: 12%",
+          "Now at enterprise tier: €0.05/ha = €310/year for entire cooperative"
+        ],
+        "conclusion": "The cooperative charges members €2/ha/year for precision ag services, generating €12,400 annual revenue."
+      }
+    },
+    "finance": {
+      "name": "Bank / Financial Institution",
+      "title": "🏦 For Banks & Financial Institutions",
+      "description": "Better lending decisions with soil data",
+      "lead": "Make better lending decisions with objective soil health and farm productivity data.",
+      "benefits": {
+        "assess": "Assess farm viability with soil health",
+        "monitor": "Monitor loan performance",
+        "verify": "Verify collateral land quality",
+        "lowerDefaults": "Lower default rates"
+      },
+      "creditRiskTitle": "📊 Credit Risk Assessment",
+      "creditRiskFeatures": [
+        "Soil Health Score (0-100) for each field",
+        "Productivity potential estimates",
+        "Historical yield correlation data",
+        "Compare borrower's land to regional averages"
+      ],
+      "collateralTitle": "🔍 Collateral Verification",
+      "collateralFeatures": [
+        "Verify land boundaries match cadastre",
+        "Assess true agricultural value of collateral",
+        "Detect land degradation over loan term",
+        "Monitor if land is actively farmed"
+      ],
+      "portfolioTitle": "📈 Portfolio Monitoring",
+      "portfolioFeatures": [
+        "Track soil health across all agricultural loans",
+        "Early warning for at-risk borrowers",
+        "Seasonal productivity forecasts",
+        "Regional risk heat maps"
+      ],
+      "expectedBenefitsTitle": "Expected Benefits:",
+      "expectedBenefits": {
+        "defaults": {
+          "value": "3-5%",
+          "description": "Lower default rates on ag loans"
+        },
+        "approval": {
+          "value": "20%",
+          "description": "Faster loan approval decisions"
+        },
+        "savings": {
+          "value": "€50K+",
+          "description": "Annual savings in appraisal costs"
+        }
+      },
+      "complianceTitle": "🔐 Compliance & Privacy",
+      "complianceFeatures": [
+        "GDPR compliant data handling",
+        "Bank-grade encryption (AES-256)",
+        "Role-based access control",
+        "Audit logs for all data access"
+      ]
+    },
+    "supplier": {
+      "name": "Input Supplier",
+      "title": "🌱 For Input Suppliers",
+      "description": "Recommend products based on actual soil needs",
+      "lead": "Differentiate your business with precision recommendations based on actual soil data.",
+      "benefits": {
+        "recommendations": "Site-specific product recommendations",
+        "satisfaction": "Increase customer satisfaction",
+        "differentiate": "Differentiate from competitors",
+        "recurring": "Recurring revenue from precision services"
+      },
+      "precisionTitle": "🎯 Precision Recommendations",
+      "precisionFeatures": [
+        "Site-specific fertilizer recommendations",
+        "Show farmers exactly where they need which products",
+        "Move from tonnage sales to value-added services",
+        "Justify premium products with data"
+      ],
+      "insightsTitle": "📊 Customer Insights",
+      "insightsFeatures": [
+        "See which customers need which nutrients",
+        "Predict demand for next season",
+        "Identify upsell opportunities",
+        "Track adoption of premium products"
+      ],
+      "revenueModelTitle": "💼 Revenue Model",
+      "revenueStreams": {
+        "service": {
+          "title": "1. Service Revenue",
+          "description": "Charge €25-50/ha for soil mapping + VRA prescription service",
+          "example": "50 customers × 30 ha avg = €37,500 - €75,000/year"
+        },
+        "productSales": {
+          "title": "2. Product Sales",
+          "description": "Data shows customers need your products - easier to sell",
+          "example": "20% increase in premium product sales"
+        },
+        "retention": {
+          "title": "3. Customer Retention",
+          "description": "Lock in customers with annual soil monitoring subscriptions",
+          "example": "85% retention vs 60% without data services"
+        }
+      },
+      "partnershipTitle": "🤝 Partnership Opportunities",
+      "partnershipFeatures": [
+        "White-label SoilViews with your branding",
+        "Integrate with your e-commerce platform",
+        "Custom product recommendation algorithms",
+        "Revenue sharing on soil analysis services"
+      ]
+    },
+    "government": {
+      "name": "Government Agency",
+      "title": "🏛️ For Government Agencies",
+      "description": "Monitor agricultural sustainability at scale",
+      "lead": "Monitor agricultural sustainability and verify compliance at scale.",
+      "benefits": {
+        "verifySubsidy": "Verify subsidy eligibility",
+        "trackPractices": "Track sustainable practices",
+        "regionalMonitoring": "Regional soil health monitoring",
+        "compliance": "Environmental compliance"
+      },
+      "subsidyTitle": "📋 Subsidy Verification",
+      "subsidyFeatures": [
+        "Verify field boundaries match declarations",
+        "Detect over-application of fertilizers",
+        "Monitor compliance with agri-environmental schemes",
+        "Automated flagging of suspicious claims"
+      ],
+      "environmentalTitle": "🌍 Environmental Monitoring",
+      "environmentalFeatures": [
+        "Track soil organic carbon at regional scale",
+        "Monitor soil degradation trends",
+        "Nitrate leaching risk assessment",
+        "Support for EU Green Deal reporting"
+      ],
+      "policyTitle": "📊 Policy Planning",
+      "policyFeatures": [
+        "Regional soil health statistics",
+        "Identify areas needing intervention",
+        "Measure impact of agricultural policies",
+        "Evidence base for funding decisions"
+      ],
+      "nationalScaleTitle": "🗺️ National-Scale Capabilities",
+      "nationalScale": {
+        "coverage": {
+          "value": "5.3M ha",
+          "description": "Total Bulgarian agricultural land monitorable"
+        },
+        "resolution": {
+          "value": "10m resolution",
+          "description": "Sentinel-2 imagery - detailed enough for field-level monitoring"
+        },
+        "frequency": {
+          "value": "Every 5 days",
+          "description": "Satellite revisit frequency for monitoring"
+        }
+      },
+      "integrationTitle": "🔗 Integration",
+      "integrationFeatures": [
+        "API integration with IACS (Integrated Administration and Control System)",
+        "Compatible with LPIS (Land Parcel Identification System)",
+        "Export data in INSPIRE-compliant formats",
+        "Secure data exchange following eIDAS standards"
+      ]
+    },
+    "research": {
+      "name": "Research Institution",
+      "title": "🔬 For Research Institutions",
+      "description": "Access large-scale soil data for studies",
+      "lead": "Access validated soil property maps and historical data for scientific research.",
+      "benefits": {
+        "apiAccess": "API access to soil property maps",
+        "historical": "Historical time series data",
+        "accuracy": "Model accuracy metrics (R² ≥ 0.78)",
+        "academicPricing": "Academic pricing available"
+      },
+      "dataAccessTitle": "📊 Data Access",
+      "dataAccessFeatures": [
+        "Historical soil property time series (2017-present)",
+        "10m spatial resolution GeoTIFF exports",
+        "Soil properties: pH, OM, N, P, K, clay, sand, silt",
+        "Spectral indices: NDVI, EVI, NDMI, SAVI"
+      ],
+      "modelInfoTitle": "🤖 Model Information",
+      "modelInfoFeatures": [
+        "EfficientNet-b3 + DeepLabV3+ architecture",
+        "Training data: 18,340 Bulgarian soil samples",
+        "Validation accuracy: R² ≥ 0.78 for all properties",
+        "Model cards with full methodology"
+      ],
+      "researchAppTitle": "🎓 Research Applications",
+      "researchApplications": {
+        "climate": {
+          "title": "Climate Change Studies",
+          "description": "Track soil organic carbon sequestration over time"
+        },
+        "precision": {
+          "title": "Precision Agriculture",
+          "description": "Validate VRA strategies against ground truth"
+        },
+        "soilScience": {
+          "title": "Soil Science",
+          "description": "Large-scale soil property mapping and interpolation"
+        },
+        "remoteSensing": {
+          "title": "Remote Sensing",
+          "description": "Train and benchmark new ML models"
+        }
+      },
+      "apiAccessTitle": "🔓 API Access",
+      "apiAccessFeatures": [
+        "REST API with OpenAPI documentation",
+        "Python SDK for data science workflows",
+        "Bulk download endpoints",
+        "Rate limits: 1000 requests/hour for academic users"
+      ],
+      "academicPricingTitle": "💰 Academic Pricing",
+      "academicPricingTable": {
+        "dataAccess": {
+          "label": "Data access:",
+          "value": "Free for peer-reviewed publications"
+        },
+        "apiAccess": {
+          "label": "API access:",
+          "value": "€500/year (unlimited requests)"
+        },
+        "historicalArchive": {
+          "label": "Historical archive:",
+          "value": "€1,000/year (2017-present)"
+        },
+        "contactNote": "📧 Contact research@soilviews.bg for collaboration inquiries"
+      }
+    }
+  },
+  "methods": {
+    "quickAnalysis": {
+      "title": "1. Quick Analysis",
+      "tag": "Recommended for new users",
+      "description": "Draw an area and analyze immediately. No commitment - expires in 30 days unless you save it.",
+      "features": [
+        "Test before you commit",
+        "Results in 3-5 minutes",
+        "No field naming required",
+        "Auto-cleanup after 30 days"
+      ],
+      "time": "⏱️ 2 minutes"
+    },
+    "kaisSearch": {
+      "title": "2. KAIS Search",
+      "tag": "For existing parcels",
+      "description": "Search Bulgarian cadastre by ID or municipality to find and select your registered fields.",
+      "features": [
+        "Official cadastre data",
+        "Accurate boundaries",
+        "By ID or municipality",
+        "Free open data"
+      ],
+      "time": "⏱️ 1 minute"
+    },
+    "kaisImport": {
+      "title": "3. KAIS Import",
+      "tag": "For multiple fields",
+      "description": "Upload shapefiles from KAIS open data portal to import hundreds of parcels at once.",
+      "features": [
+        "Bulk import",
+        "Coordinate transformation",
+        "Duplicate detection",
+        "Validation checks"
+      ],
+      "time": "⏱️ 5 minutes"
+    },
+    "drawManually": {
+      "title": "4. Draw Manually",
+      "tag": "For custom boundaries",
+      "description": "Draw field boundaries directly on the map for non-cadastre areas or custom shapes.",
+      "features": [
+        "Full control",
+        "Any boundary",
+        "Custom metadata",
+        "Permanent from start"
+      ],
+      "time": "⏱️ 3 minutes"
+    }
+  },
+  "testimonials": [
+    {
+      "name": "Ivan Petrov",
+      "role": "Farm Owner",
+      "company": "450 ha wheat/sunflower",
+      "quote": "Reduced fertilizer costs by 22% in first year. ROI was positive within 6 months.",
+      "metrics": "22% cost reduction, €3,200 saved"
+    },
+    {
+      "name": "Dr. Maria Dimitrova",
+      "role": "Crop Consultant",
+      "company": "AgroConsult Bulgaria",
+      "quote": "SoilViews lets me serve 3x more clients with data-backed recommendations. My clients love the professional maps.",
+      "metrics": "3x more clients, 95% retention"
+    },
+    {
+      "name": "Stefan Georgiev",
+      "role": "Risk Analyst",
+      "company": "AgriInsure Ltd.",
+      "quote": "Soil health data helps us price policies accurately and detect fraud. Claims reduced by 18%.",
+      "metrics": "18% fewer claims, better risk assessment"
+    },
+    {
+      "name": "Cooperative Zora",
+      "role": "Agricultural Cooperative",
+      "company": "127 member farms",
+      "quote": "Bulk pricing made precision ag affordable for our small farmers. Average yield increased 12%.",
+      "metrics": "127 farms, 12% yield increase"
+    }
+  ],
+  "caseStudies": {
+    "wheatFarm": {
+      "title": "🌾 450 ha Wheat Farm",
+      "investment": "Investment: €45/year (€0.10/ha)",
+      "fertilizerSavings": "Fertilizer savings: €3,200/year",
+      "yieldIncrease": "Yield increase: 320 tons × €220 = €70,400",
+      "roi": "ROI: 16,344%"
+    },
+    "consultant": {
+      "title": "🎓 Agricultural Consultant",
+      "clients": "Clients: 35 farms, 1,850 ha total",
+      "soilViewsCost": "SoilViews cost: €185/year",
+      "serviceRevenue": "Service revenue: €45/ha × 1,850 = €83,250",
+      "margin": "Margin: 99.8%"
+    },
+    "cooperative": {
+      "title": "🤝 Agricultural Cooperative",
+      "members": "Members: 127 farms, 6,200 ha",
+      "cost": "Cost (enterprise tier): €0.05/ha = €310/year",
+      "memberCharge": "Member charge: €2/ha = €12,400/year",
+      "profit": "Cooperative profit: €12,090"
+    }
+  },
+  "getStarted": {
+    "quickStart": {
+      "trial": {
+        "title": "Start Free Trial",
+        "description": "Try SoilViews risk-free for 14 days. Analyze up to 50 hectares.",
+        "button": "Start Free Trial →"
+      },
+      "demo": {
+        "title": "Schedule Demo",
+        "description": "Book a personalized demo with our team to see all features.",
+        "button": "Book Demo →"
+      }
+    },
+    "pricing": {
+      "title": "💰 Transparent Pricing",
+      "individual": {
+        "name": "Individual",
+        "price": "€0.10",
+        "unit": "/ha/year",
+        "features": [
+          "Up to 1,000 hectares",
+          "Unlimited soil maps",
+          "Unlimited VRA prescriptions",
+          "Email support",
+          "KAIS integration"
+        ],
+        "button": "Get Started"
+      },
+      "professional": {
+        "name": "Professional",
+        "badge": "Most Popular",
+        "price": "€0.07",
+        "unit": "/ha/year",
+        "features": [
+          "1,000 - 10,000 hectares",
+          "Everything in Individual",
+          "White-label reports",
+          "Multi-client management",
+          "Priority support",
+          "API access"
+        ],
+        "button": "Get Started"
+      },
+      "enterprise": {
+        "name": "Enterprise",
+        "price": "€0.05",
+        "unit": "/ha/year",
+        "features": [
+          "10,000+ hectares",
+          "Everything in Professional",
+          "Dedicated account manager",
+          "Custom integrations",
+          "SLA guarantee",
+          "On-site training"
+        ],
+        "button": "Contact Sales"
+      }
+    },
+    "help": {
+      "title": "Need Help?",
+      "documentation": {
+        "title": "Documentation",
+        "description": "Detailed guides and API references",
+        "link": "View Docs →"
+      },
+      "support": {
+        "title": "Support",
+        "email": "Email: support@soilviews.bg",
+        "responseTime": "Response time: <24 hours"
+      },
+      "training": {
+        "title": "Training",
+        "description": "Video tutorials and webinars",
+        "languages": "Bulgarian & English"
+      }
+    },
+    "trust": {
+      "title": "Trusted By",
+      "badges": [
+        "EU-funded research project",
+        "Partnership with Bulgarian Academy of Sciences",
+        "ISO 28258 compliant soil data",
+        "GDPR compliant data handling"
+      ]
+    }
+  },
+  "roiCalculator": {
+    "title": "💵 ROI Calculator",
+    "farmSize": "Farm Size (hectares)",
+    "fertilizerCost": "Current Fertilizer Cost (€/ha/year)",
+    "expectedSavings": "Expected Savings (%)",
+    "typicalRange": "Typical range: 15-25%",
+    "results": {
+      "soilViewsCost": "SoilViews Cost:",
+      "fertilizerSavings": "Fertilizer Savings:",
+      "netSavings": "Net Savings:",
+      "roi": "ROI:",
+      "breakevenTime": "Break-even time: {{months}} months"
+    }
+  }
+}

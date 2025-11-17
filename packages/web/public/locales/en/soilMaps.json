@@ -1,0 +1,36 @@
+{
+  "viewer": {
+    "year": "Year:",
+    "resolution": "Resolution:",
+    "status": "Status:",
+    "opacity": "Layer Opacity:",
+    "legend": {
+      "title": "Statistics",
+      "min": "Min:",
+      "max": "Max:",
+      "mean": "Mean:",
+      "stdDev": "Std Dev:",
+      "p10": "P10:",
+      "p25": "P25:",
+      "p50": "P50:",
+      "p75": "P75:",
+      "p90": "P90:"
+    },
+    "modelInfo": {
+      "title": "Model Information",
+      "encoder": "Encoder:",
+      "decoder": "Decoder:",
+      "version": "Version:",
+      "r2Score": "R² Score:"
+    },
+    "properties": {
+      "ph": "Soil pH",
+      "organicMatter": "Organic Matter (%)",
+      "nitrogen": "Nitrogen (mg/kg)",
+      "phosphorus": "Phosphorus (mg/kg)",
+      "potassium": "Potassium (mg/kg)",
+      "clay": "Clay Content (%)",
+      "sand": "Sand Content (%)"
+    }
+  }
+}

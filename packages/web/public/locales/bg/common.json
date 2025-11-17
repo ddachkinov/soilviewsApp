@@ -1,0 +1,49 @@
+{
+  "appName": "SoilViews",
+  "buttons": {
+    "login": "Вход",
+    "cancel": "Отказ",
+    "confirm": "Потвърди",
+    "save": "Запази",
+    "delete": "Изтрий",
+    "edit": "Редактирай",
+    "close": "Затвори",
+    "next": "Напред",
+    "previous": "Назад",
+    "skip": "Пропусни",
+    "reset": "Нулирай",
+    "search": "Търси",
+    "searching": "Търсене...",
+    "loading": "Зареждане...",
+    "submit": "Изпрати",
+    "download": "Изтегли"
+  },
+  "navigation": {
+    "dashboard": "Табло",
+    "fields": "Полета",
+    "map": "Карта",
+    "logout": "Изход"
+  },
+  "common": {
+    "area": "Площ",
+    "hectares": "хектара",
+    "ha": "ха",
+    "status": "Статус",
+    "createdAt": "Създадено",
+    "year": "Година",
+    "resolution": "Разделителна способност",
+    "notSpecified": "Не е посочено",
+    "welcome": "Добре дошли в SoilViews",
+    "email": "Имейл",
+    "password": "Парола"
+  },
+  "units": {
+    "hectares": "хектара",
+    "ha": "ха",
+    "mgPerKg": "mg/kg",
+    "percent": "%",
+    "kgPerHa": "kg/ha",
+    "tPerHa": "t/ha",
+    "meters": "метра"
+  }
+}

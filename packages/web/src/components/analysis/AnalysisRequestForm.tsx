@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { mapsApi, CreateMapDto } from '../../services/maps';
 
@@ -13,6 +14,7 @@ interface AnalysisRequestFormProps {
  * Referenced in UI/UX workflow documentation.
  */
 export const AnalysisRequestForm: React.FC<AnalysisRequestFormProps> = ({ fieldId, onRequestComplete }) => {
+  const { t } = useTranslation('analysis');
   const queryClient = useQueryClient();
 
   const [selectedProperties, setSelectedProperties] = useState<string[]>([]);
@@ -20,13 +22,13 @@ export const AnalysisRequestForm: React.FC<AnalysisRequestFormProps> = ({ fieldI
   const [maxCloudCover, setMaxCloudCover] = useState<number>(20);
 
   const properties = [
-    { value: 'ph', label: 'Soil pH', description: 'Acidity/alkalinity (4.0-9.0)' },
-    { value: 'organic_matter', label: 'Organic Matter', description: 'Percentage (0-15%)' },
-    { value: 'nitrogen', label: 'Nitrogen', description: 'Total N (mg/kg)' },
-    { value: 'phosphorus', label: 'Phosphorus', description: 'Available P (mg/kg)' },
-    { value: 'potassium', label: 'Potassium', description: 'Exchangeable K (mg/kg)' },
-    { value: 'clay_percent', label: 'Clay Content', description: 'Percentage (0-100%)' },
-    { value: 'sand_percent', label: 'Sand Content', description: 'Percentage (0-100%)' },
+    { value: 'ph', label: t('soilProperties.ph.name'), description: t('soilProperties.ph.description') },
+    { value: 'organic_matter', label: t('soilProperties.organicMatter.name'), description: t('soilProperties.organicMatter.description') },
+    { value: 'nitrogen', label: t('soilProperties.nitrogen.name'), description: t('soilProperties.nitrogen.description') },
+    { value: 'phosphorus', label: t('soilProperties.phosphorus.name'), description: t('soilProperties.phosphorus.description') },
+    { value: 'potassium', label: t('soilProperties.potassium.name'), description: t('soilProperties.potassium.description') },
+    { value: 'clay_percent', label: t('soilProperties.clay.name'), description: t('soilProperties.clay.description') },
+    { value: 'sand_percent', label: t('soilProperties.sand.name'), description: t('soilProperties.sand.description') },
   ];
 
   const createMapsMutation = useMutation({
@@ -44,13 +46,13 @@ export const AnalysisRequestForm: React.FC<AnalysisRequestFormProps> = ({ fieldI
       return Promise.all(promises);
     },
     onSuccess: (data) => {
-      alert(`Successfully requested ${data.length} soil property maps. Processing will begin shortly.`);
+      alert(t('requestForm.success', { count: data.length }));
       queryClient.invalidateQueries({ queryKey: ['maps', fieldId] });
       setSelectedProperties([]);
       onRequestComplete?.();
     },
     onError: (error: any) => {
-      alert(`Failed to request analysis: ${error.message || 'Unknown error'}`);
+      alert(t('requestForm.errorRequest', { message: error.message || 'Unknown error' }));
     },
   });
 
@@ -72,11 +74,11 @@ export const AnalysisRequestForm: React.FC<AnalysisRequestFormProps> = ({ fieldI
     e.preventDefault();
 
     if (selectedProperties.length === 0) {
-      alert('Please select at least one soil property to analyze');
+      alert(t('requestForm.errorNoProperties'));
       return;
     }
 
-    if (window.confirm(`Request analysis for ${selectedProperties.length} soil properties?`)) {
+    if (window.confirm(t('requestForm.confirmMessage', { count: selectedProperties.length }))) {
       createMapsMutation.mutate();
     }
   };
@@ -84,16 +86,16 @@ export const AnalysisRequestForm: React.FC<AnalysisRequestFormProps> = ({ fieldI
   return (
     <div className="analysis-request-form">
       <div className="form-header">
-        <h3>Request Soil Analysis</h3>
+        <h3>{t('requestForm.title')}</h3>
         <p className="help-text">
-          Select soil properties to analyze. Analysis uses satellite imagery and AI to generate property maps.
+          {t('requestForm.helpText')}
         </p>
       </div>
 
       <form onSubmit={handleSubmit}>
         <div className="form-section">
           <label>
-            <strong>Crop Year</strong>
+            <strong>{t('requestForm.cropYear')}</strong>
           </label>
           <input
             type="number"
@@ -107,7 +109,7 @@ export const AnalysisRequestForm: React.FC<AnalysisRequestFormProps> = ({ fieldI
 
         <div className="form-section">
           <label>
-            <strong>Maximum Cloud Cover (%)</strong>
+            <strong>{t('requestForm.maxCloudCover')}</strong>
           </label>
           <input
             type="range"
@@ -117,18 +119,18 @@ export const AnalysisRequestForm: React.FC<AnalysisRequestFormProps> = ({ fieldI
             onChange={(e) => setMaxCloudCover(parseInt(e.target.value))}
           />
           <span>{maxCloudCover}%</span>
-          <p className="help-text">Lower values provide clearer imagery but may reduce data availability</p>
+          <p className="help-text">{t('requestForm.cloudCoverHelp')}</p>
         </div>
 
         <div className="form-section">
           <div className="section-header">
-            <strong>Soil Properties to Analyze</strong>
+            <strong>{t('requestForm.propertiesToAnalyze')}</strong>
             <div className="select-actions">
               <button type="button" onClick={handleSelectAll} className="btn-link">
-                Select All
+                {t('requestForm.selectAll')}
               </button>
               <button type="button" onClick={handleDeselectAll} className="btn-link">
-                Deselect All
+                {t('requestForm.deselectAll')}
               </button>
             </div>
           </div>
@@ -154,12 +156,12 @@ export const AnalysisRequestForm: React.FC<AnalysisRequestFormProps> = ({ fieldI
 
         <div className="form-section">
           <div className="info-box">
-            <h4>Processing Information</h4>
+            <h4>{t('requestForm.processingInfo.title')}</h4>
             <ul>
-              <li>Analysis typically takes 3-5 minutes per property</li>
-              <li>You will receive email and in-app notifications when complete</li>
-              <li>Maps are generated using Sentinel-2 satellite imagery and AI</li>
-              <li>Resolution: 10 meters per pixel</li>
+              <li>{t('requestForm.processingInfo.duration')}</li>
+              <li>{t('requestForm.processingInfo.notifications')}</li>
+              <li>{t('requestForm.processingInfo.technology')}</li>
+              <li>{t('requestForm.processingInfo.resolution')}</li>
             </ul>
           </div>
         </div>
@@ -167,8 +169,8 @@ export const AnalysisRequestForm: React.FC<AnalysisRequestFormProps> = ({ fieldI
         <div className="form-actions">
           <button type="submit" className="btn-primary" disabled={createMapsMutation.isPending}>
             {createMapsMutation.isPending
-              ? 'Requesting...'
-              : `Request Analysis (${selectedProperties.length} properties)`}
+              ? t('requestForm.requesting')
+              : t('requestForm.requestButton', { count: selectedProperties.length })}
           </button>
         </div>
       </form>

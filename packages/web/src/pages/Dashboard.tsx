@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useQuery } from '@tanstack/react-query';
 import { fieldsApi, Field } from '../services/fields';
 import { mapsApi } from '../services/maps';
@@ -10,12 +11,14 @@ import { QuickAnalysisArea } from '../components/analysis/QuickAnalysisArea';
 import { AnalysisRequestForm } from '../components/analysis/AnalysisRequestForm';
 import { SoilMapViewer } from '../components/maps/SoilMapViewer';
 import { PrescriptionRequestForm } from '../components/prescriptions/PrescriptionRequestForm';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
 
 /**
  * Main dashboard component for SoilViews platform.
  * Integrates all workflows: field management, analysis, visualization, prescriptions.
  */
 export function Dashboard() {
+  const { t } = useTranslation(['dashboard', 'common']);
   const [selectedFieldId, setSelectedFieldId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<'fields' | 'analysis' | 'maps' | 'prescriptions'>('fields');
   const [showFieldDrawer, setShowFieldDrawer] = useState(false);
@@ -55,33 +58,36 @@ export function Dashboard() {
       refetchFields();
       setShowFieldDrawer(false);
     } catch (error: any) {
-      alert(`Failed to create field: ${error.message}`);
+      alert(t('alerts.fieldCreationError', { message: error.message }));
     }
   };
 
   return (
     <div className="dashboard">
       <header className="dashboard-header">
-        <h1>SoilViews Dashboard</h1>
-        <p>Agricultural Intelligence Platform for Bulgarian Farmers</p>
+        <div>
+          <h1>{t('title')}</h1>
+          <p>{t('subtitle')}</p>
+        </div>
+        <LanguageSwitcher />
       </header>
 
       <div className="dashboard-layout">
         {/* Sidebar - Field List */}
         <aside className="sidebar">
           <div className="sidebar-header">
-            <h2>My Fields</h2>
+            <h2>{t('sidebar.myFields')}</h2>
             <div className="field-actions">
-              <button onClick={() => setShowQuickAnalysis(true)} className="btn-icon" title="Quick analysis">
+              <button onClick={() => setShowQuickAnalysis(true)} className="btn-icon" title={t('tooltips.quickAnalysis')}>
                 ⚡
               </button>
-              <button onClick={() => setShowFieldDrawer(true)} className="btn-icon" title="Draw field">
+              <button onClick={() => setShowFieldDrawer(true)} className="btn-icon" title={t('tooltips.drawField')}>
                 ✏️
               </button>
-              <button onClick={() => setShowCadastreSearch(true)} className="btn-icon" title="Search KAIS">
+              <button onClick={() => setShowCadastreSearch(true)} className="btn-icon" title={t('tooltips.searchKais')}>
                 🔍
               </button>
-              <button onClick={() => setShowKaisImporter(true)} className="btn-icon" title="Import from KAIS">
+              <button onClick={() => setShowKaisImporter(true)} className="btn-icon" title={t('tooltips.importKais')}>
                 📥
               </button>
             </div>
@@ -95,8 +101,8 @@ export function Dashboard() {
                 onClick={() => setSelectedFieldId(field.id)}
               >
                 <strong>{field.name}</strong>
-                <span>{field.areaHectares.toFixed(2)} ha</span>
-                {field.temporary && <span className="temp-badge" title="Temporary - expires in 30 days">⚡</span>}
+                <span>{field.areaHectares.toFixed(2)} {t('units.ha', { ns: 'common' })}</span>
+                {field.temporary && <span className="temp-badge" title={t('fieldInfo.temporary')}>⚡</span>}
                 {field.cropType && <span className="crop-badge">{field.cropType}</span>}
               </li>
             ))}
@@ -104,12 +110,12 @@ export function Dashboard() {
 
           {fields.length === 0 && (
             <div className="empty-state">
-              <p>No fields yet</p>
+              <p>{t('sidebar.noFields')}</p>
               <button onClick={() => setShowQuickAnalysis(true)} className="btn-primary">
-                ⚡ Quick Analysis
+                ⚡ {t('sidebar.quickAnalysis')}
               </button>
               <button onClick={() => setShowFieldDrawer(true)} className="btn-secondary">
-                Add Field
+                {t('sidebar.addField')}
               </button>
             </div>
           )}
@@ -119,11 +125,17 @@ export function Dashboard() {
         <main className="main-content">
           {!selectedFieldId && (
             <div className="welcome-screen">
-              <h2>Welcome to SoilViews</h2>
-              <p>Select a field from the sidebar or create a new one to get started.</p>
-              <p className="help-text">
-                💡 Tip: Use <strong>⚡ Quick Analysis</strong> to test an area without creating a permanent field!
-              </p>
+              <h2>{t('welcome.title')}</h2>
+              <p>{t('welcome.message')}</p>
+              <div className="help-section">
+                <h3>{t('welcome.helpTitle')}</h3>
+                <ul>
+                  <li>{t('welcome.tips.quickAnalysis')}</li>
+                  <li>{t('welcome.tips.kaisImport')}</li>
+                  <li>{t('welcome.tips.drawField')}</li>
+                  <li>{t('welcome.tips.soilAnalysis')}</li>
+                </ul>
+              </div>
             </div>
           )}
 
@@ -136,22 +148,22 @@ export function Dashboard() {
                     className={activeTab === 'fields' ? 'active' : ''}
                     onClick={() => setActiveTab('fields')}
                   >
-                    Field Info
+                    {t('tabs.fieldInfo')}
                   </button>
                   <button
                     className={activeTab === 'analysis' ? 'active' : ''}
                     onClick={() => setActiveTab('analysis')}
                   >
-                    Request Analysis
+                    {t('tabs.requestAnalysis')}
                   </button>
                   <button className={activeTab === 'maps' ? 'active' : ''} onClick={() => setActiveTab('maps')}>
-                    Soil Maps ({maps.length})
+                    {t('tabs.soilMaps')} ({maps.length})
                   </button>
                   <button
                     className={activeTab === 'prescriptions' ? 'active' : ''}
                     onClick={() => setActiveTab('prescriptions')}
                   >
-                    Prescriptions ({prescriptions.length})
+                    {t('tabs.prescriptions')} ({prescriptions.length})
                   </button>
                 </div>
               </div>
@@ -161,11 +173,11 @@ export function Dashboard() {
                   <div className="field-info">
                     {selectedField.temporary && (
                       <div className="warning-banner">
-                        <strong>⚡ Temporary Field</strong>
+                        <strong>{t('temporaryBanner.title')}</strong>
                         <p>
-                          This field will be automatically deleted in 30 days unless you save it permanently.
+                          {t('temporaryBanner.message')}
                           {selectedField.expiresAt && (
-                            <> Expires: {new Date(selectedField.expiresAt).toLocaleDateString()}</>
+                            <> {t('common.createdAt', { ns: 'common' })}: {new Date(selectedField.expiresAt).toLocaleDateString()}</>
                           )}
                         </p>
                         <button
@@ -179,30 +191,30 @@ export function Dashboard() {
                           }}
                           className="btn-primary"
                         >
-                          Save as Permanent Field
+                          {t('temporaryBanner.saveButton')}
                         </button>
                       </div>
                     )}
 
-                    <h3>Field Details</h3>
+                    <h3>{t('tabs.fieldInfo')}</h3>
                     <dl>
-                      <dt>Area:</dt>
-                      <dd>{selectedField.areaHectares.toFixed(2)} hectares</dd>
+                      <dt>{t('fieldInfo.area')}</dt>
+                      <dd>{selectedField.areaHectares.toFixed(2)} {t('units.hectares', { ns: 'common' })}</dd>
 
-                      <dt>Crop Type:</dt>
-                      <dd>{selectedField.cropType || 'Not specified'}</dd>
+                      <dt>{t('fieldInfo.cropType')}</dt>
+                      <dd>{selectedField.cropType || t('common.notSpecified', { ns: 'common' })}</dd>
 
                       {selectedField.lpisId && (
                         <>
-                          <dt>KAIS Cadastre ID:</dt>
+                          <dt>{t('fieldInfo.kaisCadastreId')}</dt>
                           <dd>{selectedField.lpisId}</dd>
                         </>
                       )}
 
-                      <dt>Status:</dt>
-                      <dd>{selectedField.temporary ? 'Temporary (Quick Analysis)' : 'Permanent'}</dd>
+                      <dt>{t('fieldInfo.status')}</dt>
+                      <dd>{selectedField.temporary ? t('fieldInfo.temporary') : t('fieldInfo.permanent')}</dd>
 
-                      <dt>Created:</dt>
+                      <dt>{t('fieldInfo.created')}</dt>
                       <dd>{new Date(selectedField.createdAt).toLocaleDateString()}</dd>
                     </dl>
                   </div>
@@ -214,9 +226,9 @@ export function Dashboard() {
                   <div className="maps-view">
                     {maps.length === 0 && (
                       <div className="empty-state">
-                        <p>No soil maps yet. Request analysis to generate maps.</p>
+                        <p>{t('soilMaps.noMaps')}</p>
                         <button onClick={() => setActiveTab('analysis')} className="btn-primary">
-                          Request Analysis
+                          {t('soilMaps.requestButton')}
                         </button>
                       </div>
                     )}
@@ -237,14 +249,14 @@ export function Dashboard() {
 
                     {prescriptions.length > 0 && (
                       <div className="prescriptions-list">
-                        <h3>Existing Prescriptions</h3>
+                        <h3>{t('prescriptions.title')}</h3>
                         <ul>
                           {prescriptions.map((rx) => (
                             <li key={rx.id} className="prescription-item">
                               <strong>
                                 {rx.cropType} - {rx.season}
                               </strong>
-                              <span>Status: {rx.status}</span>
+                              <span>{t('prescriptions.status')} {rx.status}</span>
                               {rx.status === 'COMPLETED' && (
                                 <button
                                   onClick={async () => {
@@ -253,7 +265,7 @@ export function Dashboard() {
                                   }}
                                   className="btn-link"
                                 >
-                                  Download Shapefile
+                                  {t('prescriptions.downloadButton')}
                                 </button>
                               )}
                             </li>
@@ -322,7 +334,7 @@ export function Dashboard() {
                 setShowQuickAnalysis(false);
                 setActiveTab('maps');
                 refetchFields();
-                alert('Quick analysis started! Check the Soil Maps tab for results in 3-5 minutes.');
+                alert(t('alerts.quickAnalysisStarted'));
               }}
               onCancel={() => setShowQuickAnalysis(false)}
             />

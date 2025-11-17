@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import maplibregl from 'maplibre-gl';
 import { Map } from '../../services/maps';
 import 'maplibre-gl/dist/maplibre-gl.css';
@@ -14,6 +15,7 @@ interface SoilMapViewerProps {
  * Referenced in ADR-007 (TiTiler integration).
  */
 export const SoilMapViewer: React.FC<SoilMapViewerProps> = ({ map, fieldGeometry }) => {
+  const { t } = useTranslation('soilMaps');
   const mapContainer = useRef<HTMLDivElement>(null);
   const mapRef = useRef<maplibregl.Map | null>(null);
   const [opacity, setOpacity] = useState<number>(0.7);
@@ -109,16 +111,17 @@ export const SoilMapViewer: React.FC<SoilMapViewerProps> = ({ map, fieldGeometry
   }, [opacity]);
 
   const getPropertyLabel = (property: string): string => {
-    const labels: Record<string, string> = {
-      ph: 'Soil pH',
-      organic_matter: 'Organic Matter (%)',
-      nitrogen: 'Nitrogen (mg/kg)',
-      phosphorus: 'Phosphorus (mg/kg)',
-      potassium: 'Potassium (mg/kg)',
-      clay_percent: 'Clay Content (%)',
-      sand_percent: 'Sand Content (%)',
+    const propertyMap: Record<string, string> = {
+      ph: 'ph',
+      organic_matter: 'organicMatter',
+      nitrogen: 'nitrogen',
+      phosphorus: 'phosphorus',
+      potassium: 'potassium',
+      clay_percent: 'clay',
+      sand_percent: 'sand',
     };
-    return labels[property] || property;
+    const translationKey = propertyMap[property] || property;
+    return t(`viewer.properties.${translationKey}`, { defaultValue: property });
   };
 
   return (
@@ -126,9 +129,9 @@ export const SoilMapViewer: React.FC<SoilMapViewerProps> = ({ map, fieldGeometry
       <div className="map-header">
         <h3>{getPropertyLabel(map.property)}</h3>
         <div className="map-info">
-          <span>Year: {map.cropYear}</span>
-          <span>Resolution: {map.statistics.mean.toFixed(2)}</span>
-          <span>Status: {map.status}</span>
+          <span>{t('viewer.year')} {map.cropYear}</span>
+          <span>{t('viewer.resolution')} {map.statistics.mean.toFixed(2)}</span>
+          <span>{t('viewer.status')} {map.status}</span>
         </div>
       </div>
 
@@ -136,7 +139,7 @@ export const SoilMapViewer: React.FC<SoilMapViewerProps> = ({ map, fieldGeometry
 
       <div className="map-controls">
         <div className="opacity-control">
-          <label>Layer Opacity:</label>
+          <label>{t('viewer.opacity')}</label>
           <input
             type="range"
             min="0"
@@ -150,19 +153,19 @@ export const SoilMapViewer: React.FC<SoilMapViewerProps> = ({ map, fieldGeometry
       </div>
 
       <div className="map-legend">
-        <h4>Statistics</h4>
+        <h4>{t('viewer.legend.title')}</h4>
         <div className="stats-grid">
           <div className="stat">
-            <strong>Min:</strong> {map.statistics.min.toFixed(2)}
+            <strong>{t('viewer.legend.min')}</strong> {map.statistics.min.toFixed(2)}
           </div>
           <div className="stat">
-            <strong>Max:</strong> {map.statistics.max.toFixed(2)}
+            <strong>{t('viewer.legend.max')}</strong> {map.statistics.max.toFixed(2)}
           </div>
           <div className="stat">
-            <strong>Mean:</strong> {map.statistics.mean.toFixed(2)}
+            <strong>{t('viewer.legend.mean')}</strong> {map.statistics.mean.toFixed(2)}
           </div>
           <div className="stat">
-            <strong>Std Dev:</strong> {map.statistics.stdDev.toFixed(2)}
+            <strong>{t('viewer.legend.stdDev')}</strong> {map.statistics.stdDev.toFixed(2)}
           </div>
         </div>
 
@@ -170,29 +173,29 @@ export const SoilMapViewer: React.FC<SoilMapViewerProps> = ({ map, fieldGeometry
           <div className="percentiles">
             <h5>Percentiles</h5>
             <div className="percentile-bar">
-              <span>P10: {map.statistics.percentiles.p10.toFixed(2)}</span>
-              <span>P25: {map.statistics.percentiles.p25.toFixed(2)}</span>
-              <span>P50: {map.statistics.percentiles.p50.toFixed(2)}</span>
-              <span>P75: {map.statistics.percentiles.p75.toFixed(2)}</span>
-              <span>P90: {map.statistics.percentiles.p90.toFixed(2)}</span>
+              <span>{t('viewer.legend.p10')} {map.statistics.percentiles.p10.toFixed(2)}</span>
+              <span>{t('viewer.legend.p25')} {map.statistics.percentiles.p25.toFixed(2)}</span>
+              <span>{t('viewer.legend.p50')} {map.statistics.percentiles.p50.toFixed(2)}</span>
+              <span>{t('viewer.legend.p75')} {map.statistics.percentiles.p75.toFixed(2)}</span>
+              <span>{t('viewer.legend.p90')} {map.statistics.percentiles.p90.toFixed(2)}</span>
             </div>
           </div>
         )}
 
         <div className="model-info">
-          <h5>Model Information</h5>
+          <h5>{t('viewer.modelInfo.title')}</h5>
           <p>
-            <strong>Encoder:</strong> {map.modelMetadata.encoder}
+            <strong>{t('viewer.modelInfo.encoder')}</strong> {map.modelMetadata.encoder}
           </p>
           <p>
-            <strong>Decoder:</strong> {map.modelMetadata.decoder}
+            <strong>{t('viewer.modelInfo.decoder')}</strong> {map.modelMetadata.decoder}
           </p>
           <p>
-            <strong>Version:</strong> {map.modelMetadata.version}
+            <strong>{t('viewer.modelInfo.version')}</strong> {map.modelMetadata.version}
           </p>
           {map.modelMetadata.r2Score && (
             <p>
-              <strong>R² Score:</strong> {map.modelMetadata.r2Score.toFixed(3)}
+              <strong>{t('viewer.modelInfo.r2Score')}</strong> {map.modelMetadata.r2Score.toFixed(3)}
             </p>
           )}
         </div>

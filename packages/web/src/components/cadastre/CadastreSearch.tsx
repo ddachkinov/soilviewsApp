@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useMutation } from '@tanstack/react-query';
 import { fieldsApi, Field } from '../../services/fields';
 
@@ -11,6 +12,7 @@ interface CadastreSearchProps {
  * Allows users to search for fields by cadastre ID or EKATTE code.
  */
 export const CadastreSearch: React.FC<CadastreSearchProps> = ({ onFieldFound }) => {
+  const { t } = useTranslation(['cadastre', 'common']);
   const [searchType, setSearchType] = useState<'cadastreId' | 'ekatte'>('cadastreId');
   const [searchValue, setSearchValue] = useState('');
   const [searchResults, setSearchResults] = useState<Field[] | null>(null);
@@ -22,7 +24,7 @@ export const CadastreSearch: React.FC<CadastreSearchProps> = ({ onFieldFound }) 
         // Validate format first
         const { valid } = await fieldsApi.validateCadastreId(searchValue);
         if (!valid) {
-          throw new Error('Invalid cadastre ID format. Expected: XXXXX.YY.ZZZ (e.g., 58761.34.12)');
+          throw new Error(t('search.errors.invalidCadastreId'));
         }
 
         const field = await fieldsApi.searchByCadastreId(searchValue);
@@ -30,7 +32,7 @@ export const CadastreSearch: React.FC<CadastreSearchProps> = ({ onFieldFound }) 
       } else {
         // EKATTE search
         if (!/^\d{5}$/.test(searchValue)) {
-          throw new Error('Invalid EKATTE code. Expected 5 digits.');
+          throw new Error(t('search.errors.invalidEkatte'));
         }
 
         return await fieldsApi.searchByEkatte(searchValue);
@@ -45,7 +47,7 @@ export const CadastreSearch: React.FC<CadastreSearchProps> = ({ onFieldFound }) 
       }
     },
     onError: (error: any) => {
-      setValidationError(error.message || 'Search failed');
+      setValidationError(error.message || t('search.errors.searchFailed'));
       setSearchResults(null);
     },
   });
@@ -54,7 +56,7 @@ export const CadastreSearch: React.FC<CadastreSearchProps> = ({ onFieldFound }) 
     e.preventDefault();
 
     if (!searchValue.trim()) {
-      setValidationError('Please enter a search value');
+      setValidationError(t('search.errors.noValue'));
       return;
     }
 
@@ -70,8 +72,8 @@ export const CadastreSearch: React.FC<CadastreSearchProps> = ({ onFieldFound }) 
   return (
     <div className="cadastre-search">
       <div className="search-header">
-        <h3>Search KAIS Cadastre</h3>
-        <p className="help-text">Find fields by cadastre ID or municipality (EKATTE) code</p>
+        <h3>{t('search.title')}</h3>
+        <p className="help-text">{t('search.helpText')}</p>
       </div>
 
       <form onSubmit={handleSearch} className="search-form">
@@ -83,7 +85,7 @@ export const CadastreSearch: React.FC<CadastreSearchProps> = ({ onFieldFound }) 
               checked={searchType === 'cadastreId'}
               onChange={(e) => setSearchType(e.target.value as 'cadastreId')}
             />
-            Cadastre ID
+            {t('search.searchType.cadastreId')}
           </label>
           <label>
             <input
@@ -92,7 +94,7 @@ export const CadastreSearch: React.FC<CadastreSearchProps> = ({ onFieldFound }) 
               checked={searchType === 'ekatte'}
               onChange={(e) => setSearchType(e.target.value as 'ekatte')}
             />
-            EKATTE Code
+            {t('search.searchType.ekatteCode')}
           </label>
         </div>
 
@@ -101,35 +103,35 @@ export const CadastreSearch: React.FC<CadastreSearchProps> = ({ onFieldFound }) 
             type="text"
             placeholder={
               searchType === 'cadastreId'
-                ? 'e.g., 58761.34.12'
-                : 'e.g., 58761 (Sofia municipality)'
+                ? t('search.placeholder.cadastreId')
+                : t('search.placeholder.ekatte')
             }
             value={searchValue}
             onChange={(e) => handleInputChange(e.target.value)}
             className="search-input"
           />
           <button type="submit" className="btn-primary" disabled={searchMutation.isPending}>
-            {searchMutation.isPending ? 'Searching...' : 'Search'}
+            {searchMutation.isPending ? t('common:buttons.searching') : t('common:buttons.search')}
           </button>
         </div>
 
         {searchType === 'cadastreId' && (
           <div className="help-text">
-            Format: XXXXX.YY.ZZZ
+            {t('search.formatHelp.title')}
             <br />
-            XXXXX = EKATTE code (municipality)
+            {t('search.formatHelp.ekatte')}
             <br />
-            YY = Property number
+            {t('search.formatHelp.property')}
             <br />
-            ZZZ = Parcel number
+            {t('search.formatHelp.parcel')}
           </div>
         )}
 
         {searchType === 'ekatte' && (
           <div className="help-text">
-            EKATTE is a 5-digit code identifying Bulgarian municipalities.
+            {t('search.formatHelp.ekatteDescription')}
             <br />
-            Examples: 58761 (Sofia), 56784 (Plovdiv), 63453 (Varna)
+            {t('search.formatHelp.examples')}
           </div>
         )}
 
@@ -138,12 +140,14 @@ export const CadastreSearch: React.FC<CadastreSearchProps> = ({ onFieldFound }) 
 
       {searchResults !== null && (
         <div className="search-results">
-          <h4>Search Results</h4>
+          <h4>{t('search.results.title')}</h4>
 
           {searchResults.length === 0 && (
             <p className="no-results">
-              No fields found for {searchType === 'cadastreId' ? 'cadastre ID' : 'EKATTE code'}{' '}
-              "{searchValue}".
+              {t('search.results.noResults', {
+                type: searchType === 'cadastreId' ? t('search.searchType.cadastreId') : t('search.searchType.ekatteCode'),
+                value: searchValue
+              })}
             </p>
           )}
 
@@ -153,14 +157,14 @@ export const CadastreSearch: React.FC<CadastreSearchProps> = ({ onFieldFound }) 
                 <li key={field.id} className="result-item">
                   <div className="field-info">
                     <strong>{field.name}</strong>
-                    {field.lpisId && <span className="cadastre-id">ID: {field.lpisId}</span>}
-                    <span className="area">{field.areaHectares.toFixed(2)} ha</span>
+                    {field.lpisId && <span className="cadastre-id">{t('search.results.id')} {field.lpisId}</span>}
+                    <span className="area">{field.areaHectares.toFixed(2)} {t('common:units.ha')}</span>
                   </div>
                   <button
                     onClick={() => onFieldFound?.(field)}
                     className="btn-link"
                   >
-                    View Field →
+                    {t('search.results.viewField')}
                   </button>
                 </li>
               ))}
@@ -169,7 +173,7 @@ export const CadastreSearch: React.FC<CadastreSearchProps> = ({ onFieldFound }) 
 
           {searchResults.length > 1 && (
             <div className="results-summary">
-              Found {searchResults.length} fields in municipality
+              {t('search.results.foundInMunicipality', { count: searchResults.length })}
             </div>
           )}
         </div>

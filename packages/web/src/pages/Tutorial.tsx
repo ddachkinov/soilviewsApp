@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { LanguageSwitcher } from '../components/LanguageSwitcher';
 
 /**
  * Enhanced interactive landing page with customer segmentation.
@@ -1105,6 +1106,9 @@ export function Tutorial() {
         <div className="tutorial-logo">
           <h1>🌾 SoilViews</h1>
           <p>Interactive Guide</p>
+          <div className="tutorial-language-switcher">
+            <LanguageSwitcher />
+          </div>
           {selectedSegment && (
             <div className="selected-segment-indicator">
               <small>Personalized for:</small>

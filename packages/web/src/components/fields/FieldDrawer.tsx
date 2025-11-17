@@ -1,4 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import maplibregl from 'maplibre-gl';
 import MapboxDraw from '@mapbox/mapbox-gl-draw';
 import * as turf from '@turf/turf';
@@ -16,6 +17,7 @@ interface FieldDrawerProps {
  * Referenced in UI/UX workflow documentation.
  */
 export const FieldDrawer: React.FC<FieldDrawerProps> = ({ onFieldDrawn, onCancel }) => {
+  const { t } = useTranslation(['fields', 'common']);
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<maplibregl.Map | null>(null);
   const draw = useRef<MapboxDraw | null>(null);
@@ -82,7 +84,7 @@ export const FieldDrawer: React.FC<FieldDrawerProps> = ({ onFieldDrawn, onCancel
 
     // Validate minimum area
     if (area < 0.1) {
-      alert('Field must be at least 0.1 hectares (1000 m²)');
+      alert(t('drawer.errors.minArea'));
       if (draw.current) {
         draw.current.delete(feature.id);
       }
@@ -107,7 +109,7 @@ export const FieldDrawer: React.FC<FieldDrawerProps> = ({ onFieldDrawn, onCancel
       minLon < BULGARIA_BBOX.minLon ||
       maxLon > BULGARIA_BBOX.maxLon
     ) {
-      alert('Field must be within Bulgaria');
+      alert(t('drawer.errors.notInBulgaria'));
       if (draw.current) {
         draw.current.delete(feature.id);
       }
@@ -121,7 +123,7 @@ export const FieldDrawer: React.FC<FieldDrawerProps> = ({ onFieldDrawn, onCancel
 
     const data = draw.current.getAll();
     if (data.features.length === 0) {
-      alert('Please draw a field boundary first');
+      alert(t('drawer.errors.noBoundary'));
       return;
     }
 
@@ -135,16 +137,16 @@ export const FieldDrawer: React.FC<FieldDrawerProps> = ({ onFieldDrawn, onCancel
   return (
     <div className="field-drawer">
       <div className="drawer-header">
-        <h3>Draw Field Boundary</h3>
+        <h3>{t('drawer.title')}</h3>
         <div className="instructions">
-          <p>1. Click on the map to start drawing</p>
-          <p>2. Click to add each corner point</p>
-          <p>3. Double-click to finish the polygon</p>
-          <p>4. Use the trash icon to delete and start over</p>
+          <p>{t('drawer.instructions.step1')}</p>
+          <p>{t('drawer.instructions.step2')}</p>
+          <p>{t('drawer.instructions.step3')}</p>
+          <p>{t('drawer.instructions.step4')}</p>
         </div>
         {areaHa !== null && (
           <div className="area-display">
-            <strong>Area:</strong> {areaHa.toFixed(2)} hectares
+            <strong>{t('drawer.area')}</strong> {areaHa.toFixed(2)} {t('common:units.hectares')}
           </div>
         )}
       </div>
@@ -153,10 +155,10 @@ export const FieldDrawer: React.FC<FieldDrawerProps> = ({ onFieldDrawn, onCancel
 
       <div className="drawer-actions">
         <button onClick={onCancel} className="btn-secondary">
-          Cancel
+          {t('common:buttons.cancel')}
         </button>
         <button onClick={handleConfirm} className="btn-primary" disabled={areaHa === null}>
-          Confirm Field
+          {t('drawer.confirmButton')}
         </button>
       </div>
     </div>

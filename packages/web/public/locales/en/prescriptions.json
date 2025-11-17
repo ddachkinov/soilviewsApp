@@ -1,0 +1,43 @@
+{
+  "requestForm": {
+    "title": "Create VRA Prescription",
+    "helpText": "Generate variable rate fertilizer application maps for precision agriculture equipment.",
+    "cropType": "Crop Type",
+    "season": "Season",
+    "seasonPlaceholder": "e.g., autumn-2024, spring-2025",
+    "applicationStrategy": "Application Strategy",
+    "yieldGoal": "Yield Goal (t/ha)",
+    "calculationMethod": "Calculation Method",
+    "targetRates": "Target Application Rates (kg/ha)",
+    "nitrogen": "Nitrogen (N)",
+    "phosphorus": "Phosphorus (P₂O₅)",
+    "potassium": "Potassium (K₂O)",
+    "recommendedRates": "Recommended rates for {{cropType}} (you can adjust)",
+    "cropTypes": {
+      "winterWheat": "Winter Wheat",
+      "sunflower": "Sunflower",
+      "maize": "Maize"
+    },
+    "strategies": {
+      "variableRate": "Variable Rate (pixel-level)",
+      "zoneBased": "Zone-Based (3-5 management zones)",
+      "uniform": "Uniform (single rate)"
+    },
+    "calculationMethods": {
+      "nutrientRemoval": "Nutrient Removal (based on yield goal)",
+      "sufficiencyLevel": "Sufficiency Level",
+      "standardRecommendation": "Standard Recommendation"
+    },
+    "outputFiles": {
+      "title": "Output Files",
+      "shapefile": "Shapefile compatible with John Deere, Case IH, CLAAS equipment",
+      "pdfReport": "PDF report with application summary",
+      "isoxml": "ISO 11783 XML format for ISOBUS controllers"
+    },
+    "createButton": "Create Prescription",
+    "creating": "Creating...",
+    "confirmMessage": "Create {{strategy}} prescription for {{cropType}}?",
+    "success": "VRA prescription requested successfully. Processing will begin shortly.",
+    "error": "Failed to create prescription: {{message}}"
+  }
+}

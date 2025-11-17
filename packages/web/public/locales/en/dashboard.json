@@ -1,0 +1,61 @@
+{
+  "title": "SoilViews Dashboard",
+  "subtitle": "Agricultural Intelligence Platform for Bulgarian Farmers",
+  "sidebar": {
+    "myFields": "My Fields",
+    "noFields": "No fields yet",
+    "quickAnalysis": "Quick Analysis",
+    "addField": "Add Field"
+  },
+  "tabs": {
+    "fieldInfo": "Field Info",
+    "requestAnalysis": "Request Analysis",
+    "soilMaps": "Soil Maps",
+    "prescriptions": "Prescriptions"
+  },
+  "welcome": {
+    "title": "Welcome to SoilViews",
+    "message": "Select a field from the sidebar or create a new one to get started.",
+    "helpTitle": "💡 Quick Tips",
+    "tips": {
+      "quickAnalysis": "Use Quick Analysis to try SoilViews without creating an account",
+      "kaisImport": "Import fields from KAIS cadastre for accurate boundaries",
+      "drawField": "Draw custom field boundaries on the map",
+      "soilAnalysis": "Request soil analysis to get AI-powered nutrient maps"
+    }
+  },
+  "fieldInfo": {
+    "area": "Area:",
+    "cropType": "Crop Type:",
+    "kaisCadastreId": "KAIS Cadastre ID:",
+    "status": "Status:",
+    "created": "Created:",
+    "temporary": "Temporary (Quick Analysis)",
+    "permanent": "Permanent"
+  },
+  "temporaryBanner": {
+    "title": "⚡ Temporary Field",
+    "message": "This field will be automatically deleted in 30 days unless you save it permanently.",
+    "saveButton": "Save as Permanent Field"
+  },
+  "soilMaps": {
+    "noMaps": "No soil maps yet. Request analysis to generate maps.",
+    "requestButton": "Request Analysis"
+  },
+  "prescriptions": {
+    "title": "Existing Prescriptions",
+    "status": "Status:",
+    "completed": "COMPLETED",
+    "downloadButton": "Download Shapefile"
+  },
+  "alerts": {
+    "quickAnalysisStarted": "Quick analysis started! Check the Soil Maps tab for results in 3-5 minutes.",
+    "fieldCreationError": "Failed to create field: {{message}}"
+  },
+  "tooltips": {
+    "quickAnalysis": "Quick analysis",
+    "drawField": "Draw field",
+    "searchKais": "Search KAIS",
+    "importKais": "Import from KAIS"
+  }
+}

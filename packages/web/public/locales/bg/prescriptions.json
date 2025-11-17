@@ -1,0 +1,43 @@
+{
+  "requestForm": {
+    "title": "Създаване на VRA предписание",
+    "helpText": "Генерирайте карти за приложение на торове с променлива норма за прецизна земеделска техника.",
+    "cropType": "Тип култура",
+    "season": "Сезон",
+    "seasonPlaceholder": "напр. есен-2024, пролет-2025",
+    "applicationStrategy": "Стратегия за приложение",
+    "yieldGoal": "Целева добив (t/ha)",
+    "calculationMethod": "Метод на изчисление",
+    "targetRates": "Целеви норми на приложение (kg/ha)",
+    "nitrogen": "Азот (N)",
+    "phosphorus": "Фосфор (P₂O₅)",
+    "potassium": "Калий (K₂O)",
+    "recommendedRates": "Препоръчителни норми за {{cropType}} (можете да коригирате)",
+    "cropTypes": {
+      "winterWheat": "Озима пшеница",
+      "sunflower": "Слънчоглед",
+      "maize": "Царевица"
+    },
+    "strategies": {
+      "variableRate": "Променлива норма (ниво пиксел)",
+      "zoneBased": "Базирана на зони (3-5 управленски зони)",
+      "uniform": "Еднаква (единична норма)"
+    },
+    "calculationMethods": {
+      "nutrientRemoval": "Изнасяне на хранителни вещества (базирано на целеви добив)",
+      "sufficiencyLevel": "Ниво на достатъчност",
+      "standardRecommendation": "Стандартна препоръка"
+    },
+    "outputFiles": {
+      "title": "Изходни файлове",
+      "shapefile": "Shapefile съвместим с техника John Deere, Case IH, CLAAS",
+      "pdfReport": "PDF доклад с обобщение на приложението",
+      "isoxml": "ISO 11783 XML формат за ISOBUS контролери"
+    },
+    "createButton": "Създай предписание",
+    "creating": "Създаване...",
+    "confirmMessage": "Създаване на {{strategy}} предписание за {{cropType}}?",
+    "success": "VRA предписанието е заявено успешно. Обработката ще започне скоро.",
+    "error": "Неуспешно създаване на предписание: {{message}}"
+  }
+}
