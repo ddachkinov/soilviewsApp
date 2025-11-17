@@ -9,6 +9,8 @@ export interface Field {
   cropType?: string;
   lpisId?: string; // KAIS cadastre ID
   notes?: string;
+  temporary?: boolean; // Quick analysis field
+  expiresAt?: string; // Expiration date for temporary fields
   createdAt: string;
   updatedAt: string;
 }
@@ -98,5 +100,19 @@ export const fieldsApi = {
    */
   validateCadastreId: (cadastreId: string): Promise<{ valid: boolean }> => {
     return api.get<{ valid: boolean }>('/cadastre/validate', { cadastreId });
+  },
+
+  /**
+   * Create temporary field for quick analysis.
+   */
+  createTemporary: (geometry: any): Promise<Field> => {
+    return api.post<Field>('/fields/temporary', { geometry });
+  },
+
+  /**
+   * Convert temporary field to permanent.
+   */
+  convertToPermanent: (id: string, data: { name?: string; cropType?: string; notes?: string }): Promise<Field> => {
+    return api.post<Field>(`/fields/${id}/convert-to-permanent`, data);
   },
 };

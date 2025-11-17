@@ -83,4 +83,62 @@ export class FieldsService {
 
     return { totalHectares: parseFloat(result.totalHectares) || 0 };
   }
+
+  /**
+   * Create a temporary field for quick analysis.
+   * Expires after 30 days.
+   */
+  async createTemporary(geometry: any, organizationId: string): Promise<Field> {
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 30); // 30 days from now
+
+    const field = this.fieldsRepository.create({
+      name: `Quick Analysis ${new Date().toISOString().split('T')[0]}`,
+      geometry,
+      organizationId,
+      temporary: true,
+      expiresAt,
+    });
+
+    return this.fieldsRepository.save(field);
+  }
+
+  /**
+   * Convert temporary field to permanent.
+   */
+  async convertToPermanent(
+    id: string,
+    organizationId: string,
+    updateData: { name?: string; cropType?: string; notes?: string }
+  ): Promise<Field> {
+    const field = await this.findOne(id, organizationId);
+
+    if (!field.temporary) {
+      throw new NotFoundException('Field is not temporary');
+    }
+
+    Object.assign(field, {
+      ...updateData,
+      temporary: false,
+      expiresAt: null,
+    });
+
+    return this.fieldsRepository.save(field);
+  }
+
+  /**
+   * Clean up expired temporary fields.
+   * Called by scheduled job.
+   */
+  async cleanupExpiredTemporary(): Promise<{ deletedCount: number }> {
+    const result = await this.fieldsRepository
+      .createQueryBuilder()
+      .delete()
+      .from(Field)
+      .where('temporary = true')
+      .andWhere('expiresAt < :now', { now: new Date() })
+      .execute();
+
+    return { deletedCount: result.affected || 0 };
+  }
 }

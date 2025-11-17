@@ -6,6 +6,7 @@ import { prescriptionsApi } from '../services/prescriptions';
 import { FieldDrawer } from '../components/fields/FieldDrawer';
 import { KaisImporter } from '../components/fields/KaisImporter';
 import { CadastreSearch } from '../components/cadastre/CadastreSearch';
+import { QuickAnalysisArea } from '../components/analysis/QuickAnalysisArea';
 import { AnalysisRequestForm } from '../components/analysis/AnalysisRequestForm';
 import { SoilMapViewer } from '../components/maps/SoilMapViewer';
 import { PrescriptionRequestForm } from '../components/prescriptions/PrescriptionRequestForm';
@@ -20,6 +21,7 @@ export function Dashboard() {
   const [showFieldDrawer, setShowFieldDrawer] = useState(false);
   const [showKaisImporter, setShowKaisImporter] = useState(false);
   const [showCadastreSearch, setShowCadastreSearch] = useState(false);
+  const [showQuickAnalysis, setShowQuickAnalysis] = useState(false);
 
   // Fetch fields
   const { data: fields = [], refetch: refetchFields } = useQuery({
@@ -70,6 +72,9 @@ export function Dashboard() {
           <div className="sidebar-header">
             <h2>My Fields</h2>
             <div className="field-actions">
+              <button onClick={() => setShowQuickAnalysis(true)} className="btn-icon" title="Quick analysis">
+                ⚡
+              </button>
               <button onClick={() => setShowFieldDrawer(true)} className="btn-icon" title="Draw field">
                 ✏️
               </button>
@@ -91,6 +96,7 @@ export function Dashboard() {
               >
                 <strong>{field.name}</strong>
                 <span>{field.areaHectares.toFixed(2)} ha</span>
+                {field.temporary && <span className="temp-badge" title="Temporary - expires in 30 days">⚡</span>}
                 {field.cropType && <span className="crop-badge">{field.cropType}</span>}
               </li>
             ))}
@@ -99,8 +105,11 @@ export function Dashboard() {
           {fields.length === 0 && (
             <div className="empty-state">
               <p>No fields yet</p>
-              <button onClick={() => setShowFieldDrawer(true)} className="btn-primary">
-                Add Your First Field
+              <button onClick={() => setShowQuickAnalysis(true)} className="btn-primary">
+                ⚡ Quick Analysis
+              </button>
+              <button onClick={() => setShowFieldDrawer(true)} className="btn-secondary">
+                Add Field
               </button>
             </div>
           )}
@@ -112,6 +121,9 @@ export function Dashboard() {
             <div className="welcome-screen">
               <h2>Welcome to SoilViews</h2>
               <p>Select a field from the sidebar or create a new one to get started.</p>
+              <p className="help-text">
+                💡 Tip: Use <strong>⚡ Quick Analysis</strong> to test an area without creating a permanent field!
+              </p>
             </div>
           )}
 
@@ -147,6 +159,31 @@ export function Dashboard() {
               <div className="tab-content">
                 {activeTab === 'fields' && selectedField && (
                   <div className="field-info">
+                    {selectedField.temporary && (
+                      <div className="warning-banner">
+                        <strong>⚡ Temporary Field</strong>
+                        <p>
+                          This field will be automatically deleted in 30 days unless you save it permanently.
+                          {selectedField.expiresAt && (
+                            <> Expires: {new Date(selectedField.expiresAt).toLocaleDateString()}</>
+                          )}
+                        </p>
+                        <button
+                          onClick={async () => {
+                            const name = prompt('Enter a name for this field:', selectedField.name);
+                            if (name) {
+                              await fieldsApi.convertToPermanent(selectedField.id, { name });
+                              refetchFields();
+                              alert('Field saved permanently!');
+                            }
+                          }}
+                          className="btn-primary"
+                        >
+                          Save as Permanent Field
+                        </button>
+                      </div>
+                    )}
+
                     <h3>Field Details</h3>
                     <dl>
                       <dt>Area:</dt>
@@ -161,6 +198,9 @@ export function Dashboard() {
                           <dd>{selectedField.lpisId}</dd>
                         </>
                       )}
+
+                      <dt>Status:</dt>
+                      <dd>{selectedField.temporary ? 'Temporary (Quick Analysis)' : 'Permanent'}</dd>
 
                       <dt>Created:</dt>
                       <dd>{new Date(selectedField.createdAt).toLocaleDateString()}</dd>
@@ -265,6 +305,26 @@ export function Dashboard() {
                 setSelectedFieldId(field.id);
                 setShowCadastreSearch(false);
               }}
+            />
+          </div>
+        </div>
+      )}
+
+      {showQuickAnalysis && (
+        <div className="modal">
+          <div className="modal-content">
+            <button className="modal-close" onClick={() => setShowQuickAnalysis(false)}>
+              ×
+            </button>
+            <QuickAnalysisArea
+              onAnalysisStarted={(field: Field) => {
+                setSelectedFieldId(field.id);
+                setShowQuickAnalysis(false);
+                setActiveTab('maps');
+                refetchFields();
+                alert('Quick analysis started! Check the Soil Maps tab for results in 3-5 minutes.');
+              }}
+              onCancel={() => setShowQuickAnalysis(false)}
             />
           </div>
         </div>

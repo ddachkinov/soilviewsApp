@@ -97,4 +97,31 @@ export class FieldsController {
   async getTotalArea(@CurrentUser() user) {
     return this.fieldsService.getTotalArea(user.organizationId);
   }
+
+  /**
+   * Create temporary field for quick analysis.
+   * Expires after 30 days if not converted to permanent.
+   */
+  @Post('temporary')
+  @ApiOperation({ summary: 'Create temporary field for quick analysis' })
+  @ApiResponse({ status: 201, description: 'Temporary field created successfully' })
+  @ApiResponse({ status: 400, description: 'Invalid geometry' })
+  async createTemporary(@Body('geometry') geometry: any, @CurrentUser() user) {
+    return this.fieldsService.createTemporary(geometry, user.organizationId);
+  }
+
+  /**
+   * Convert temporary field to permanent.
+   */
+  @Post(':id/convert-to-permanent')
+  @ApiOperation({ summary: 'Convert temporary field to permanent' })
+  @ApiResponse({ status: 200, description: 'Field converted successfully' })
+  @ApiResponse({ status: 404, description: 'Field not found or not temporary' })
+  async convertToPermanent(
+    @Param('id') id: string,
+    @Body() updateData: { name?: string; cropType?: string; notes?: string },
+    @CurrentUser() user
+  ) {
+    return this.fieldsService.convertToPermanent(id, user.organizationId, updateData);
+  }
 }

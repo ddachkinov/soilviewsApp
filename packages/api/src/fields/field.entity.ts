@@ -105,6 +105,20 @@ export class Field {
   @Column({ type: 'jsonb', nullable: true })
   metadata: Record<string, any>;
 
+  /**
+   * Indicates if this is a temporary field for quick analysis.
+   * Temporary fields are auto-deleted after 30 days or when converted to permanent.
+   */
+  @Column({ type: 'boolean', default: false })
+  temporary: boolean;
+
+  /**
+   * Expiration date for temporary fields.
+   * Auto-cleanup job removes expired temporary fields.
+   */
+  @Column({ type: 'timestamptz', nullable: true })
+  expiresAt: Date;
+
   @CreateDateColumn()
   createdAt: Date;
 
